@@ -27,7 +27,7 @@ elif [ "$mode" == "check" ]; then
 
 elif [ "$mode" == "rescue" ]; then
 	echo Regenerating code
-	AutoFlow -w $template -V $variables -L $aux_opt -o exec_DEG_wf -v
+	AutoFlow -w $template -V $variables $aux_opt -o exec_DEG_wf -v
 	echo Launching pending and failed jobs
 	flow_logger -w -e exec_DEG_wf -l -p -b
 fi
