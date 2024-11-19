@@ -1,0 +1,60 @@
+simplest_og_report){
+	source ~soft_bio_267/initializes/init_degenes_hunter
+	export PATH=$script_dir:$PATH
+	?
+	degenes_Hunter.R -i $input -o ./ -t $target -m D
+
+	retVal=$?
+       if [ $retVal -ne 0 ]; then
+           echo ERROR: Last command exited with code $retVal
+           exit $retVal
+       fi
+}
+
+simplest_migrated_report){
+	module load latex/3.14
+	source ~soft_bio_267/initializes/init_R
+	export DEGHUNTER_MODE=DEVELOPMENT
+	export OMP_NUM_THREADS=1
+	export PATH=~aestebanm/dev_R/ExpHunterSuite/inst/scripts:$PATH
+	export PATH=$script_dir:$PATH
+	?
+	degenes_Hunter.R -i $input -o ./ -t $target -m D
+
+	retVal=$?
+       if [ $retVal -ne 0 ]; then
+           echo ERROR: Last command exited with code $retVal
+           exit $retVal
+       fi
+}
+
+simplest_og_report_library_sizes){
+	source ~soft_bio_267/initializes/init_degenes_hunter
+	export PATH=$script_dir:$PATH
+	?
+	degenes_Hunter.R -i $input -o ./ -t $target -m D $library_sizes
+
+	retVal=$?
+       if [ $retVal -ne 0 ]; then
+           echo ERROR: Last command exited with code $retVal
+           exit $retVal
+       fi
+}
+
+simplest_migrated_report_library_sizes){
+	module load latex/3.14
+	source ~soft_bio_267/initializes/init_R
+	export DEGHUNTER_MODE=DEVELOPMENT
+	export OMP_NUM_THREADS=1
+	export PATH=~aestebanm/dev_R/ExpHunterSuite/inst/scripts:$PATH
+	export PATH=$script_dir:$PATH
+	?
+	degenes_Hunter.R -i $input -o ./ -t $target -m D $library_sizes
+
+	retVal=$?
+       if [ $retVal -ne 0 ]; then
+           echo ERROR: Last command exited with code $retVal
+           exit $retVal
+       fi
+}
+
