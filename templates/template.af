@@ -137,5 +137,59 @@ DESEQ_migrated_N){
        fi
 }
 
+DESEQ_og_DELN){
+	source ~soft_bio_267/initializes/init_degenes_hunter
+	export PATH=$script_dir:$PATH
+	?
+	degenes_Hunter.R -i $input -o ./ -t $target -m DELN
+
+	retVal=$?
+       if [ $retVal -ne 0 ]; then
+           echo ERROR: Last command exited with code $retVal
+           exit $retVal
+       fi
+}
+
+DESEQ_migrated_DELN){
+	source ~aestebanm/projects/Hunter_hepatocytes/scripts/init_Hunter_dev
+	export PATH=~aestebanm/dev_R/ExpHunterSuite/inst/scripts:$PATH
+	export PATH=$script_dir:$PATH
+	?
+	degenes_Hunter.R -i $input -o ./ -t $target -m DELN
+
+	retVal=$?
+       if [ $retVal -ne 0 ]; then
+           echo ERROR: Last command exited with code $retVal
+           exit $retVal
+       fi
+}
+
+DESEQ_og_W){
+	source ~soft_bio_267/initializes/init_degenes_hunter
+	export PATH=$script_dir:$PATH
+	?
+	degenes_Hunter.R -i $input -o ./ -t $target -m W
+
+	retVal=$?
+       if [ $retVal -ne 0 ]; then
+           echo ERROR: Last command exited with code $retVal
+           exit $retVal
+       fi
+}
+
+DESEQ_migrated_W){
+	source ~aestebanm/projects/Hunter_hepatocytes/scripts/init_Hunter_dev
+	export PATH=~aestebanm/dev_R/ExpHunterSuite/inst/scripts:$PATH
+	export PATH=$script_dir:$PATH
+	?
+	degenes_Hunter.R -i $input -o ./ -t $target -m W
+
+	retVal=$?
+       if [ $retVal -ne 0 ]; then
+           echo ERROR: Last command exited with code $retVal
+           exit $retVal
+       fi
+}
+
 # WDELN
 
