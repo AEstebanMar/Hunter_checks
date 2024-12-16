@@ -1,5 +1,5 @@
 
-DESEQ_og_D){
+Hunter_og_D){
 	source ~soft_bio_267/initializes/init_degenes_hunter
 	export PATH=$script_dir:$PATH
 	?
@@ -12,7 +12,7 @@ DESEQ_og_D){
        fi
 }
 
-DESEQ_migrated_D){
+Hunter_migrated_D){
 	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
 	export PATH=~aestebanm/dev_R/ExpHunterSuite/inst/scripts:$PATH
 	export PATH=$script_dir:$PATH
@@ -26,7 +26,7 @@ DESEQ_migrated_D){
        fi
 }
 
-DESEQ_og_D_library_sizes){
+Hunter_og_D_library_sizes){
 	source ~soft_bio_267/initializes/init_degenes_hunter
 	export PATH=$script_dir:$PATH
 	?
@@ -39,7 +39,7 @@ DESEQ_og_D_library_sizes){
        fi
 }
 
-DESEQ_migrated_D_library_sizes){
+Hunter_migrated_D_library_sizes){
 	module load latex/3.14
 	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
 	export DEGHUNTER_MODE=DEVELOPMENT
@@ -56,7 +56,7 @@ DESEQ_migrated_D_library_sizes){
        fi
 }
 
-DESEQ_og_E){
+Hunter_og_E){
 	source ~soft_bio_267/initializes/init_degenes_hunter
 	export PATH=$script_dir:$PATH
 	?
@@ -69,7 +69,7 @@ DESEQ_og_E){
        fi
 }
 
-DESEQ_migrated_E){
+Hunter_migrated_E){
 	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
 	export PATH=~aestebanm/dev_R/ExpHunterSuite/inst/scripts:$PATH
 	export PATH=$script_dir:$PATH
@@ -83,7 +83,7 @@ DESEQ_migrated_E){
        fi
 }
 
-DESEQ_og_L){
+Hunter_og_L){
 	source ~soft_bio_267/initializes/init_degenes_hunter
 	export PATH=$script_dir:$PATH
 	?
@@ -96,7 +96,7 @@ DESEQ_og_L){
        fi
 }
 
-DESEQ_migrated_L){
+Hunter_migrated_L){
 	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
 	export PATH=~aestebanm/dev_R/ExpHunterSuite/inst/scripts:$PATH
 	export PATH=$script_dir:$PATH
@@ -110,7 +110,7 @@ DESEQ_migrated_L){
        fi
 }
 
-DESEQ_og_N){
+Hunter_og_N){
 	source ~soft_bio_267/initializes/init_degenes_hunter
 	export PATH=$script_dir:$PATH
 	?
@@ -123,7 +123,7 @@ DESEQ_og_N){
        fi
 }
 
-DESEQ_migrated_N){
+Hunter_migrated_N){
 	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
 	export PATH=~aestebanm/dev_R/ExpHunterSuite/inst/scripts:$PATH
 	export PATH=$script_dir:$PATH
@@ -137,11 +137,11 @@ DESEQ_migrated_N){
        fi
 }
 
-DESEQ_og_DELN){
+Hunter_og_DELNW){
 	source ~soft_bio_267/initializes/init_degenes_hunter
 	export PATH=$script_dir:$PATH
 	?
-	degenes_Hunter.R -i $input -o ./ -t $target -m DELN
+	degenes_Hunter.R -i $input -o ./ -t $target -m DELNW --WGCNA_norm_method "DESeq2"
 
 	retVal=$?
        if [ $retVal -ne 0 ]; then
@@ -150,12 +150,12 @@ DESEQ_og_DELN){
        fi
 }
 
-DESEQ_migrated_DELN){
+Hunter_migrated_DELNW){
 	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
 	export PATH=~aestebanm/dev_R/ExpHunterSuite/inst/scripts:$PATH
 	export PATH=$script_dir:$PATH
 	?
-	degenes_Hunter.R -i $input -o ./ -t $target -m DELN
+	degenes_Hunter.R -i $input -o ./ -t $target -m DELNW --WGCNA_norm_method "DESeq2"
 
 	retVal=$?
        if [ $retVal -ne 0 ]; then
@@ -164,11 +164,11 @@ DESEQ_migrated_DELN){
        fi
 }
 
-DESEQ_og_W){
+Hunter_og_DW){
 	source ~soft_bio_267/initializes/init_degenes_hunter
 	export PATH=$script_dir:$PATH
 	?
-	degenes_Hunter.R -i $input -o ./ -t $target -m W
+	degenes_Hunter.R -i $input -o ./ -t $target -m DW --WGCNA_norm_method "DESeq2"
 
 	retVal=$?
        if [ $retVal -ne 0 ]; then
@@ -177,12 +177,12 @@ DESEQ_og_W){
        fi
 }
 
-DESEQ_migrated_W){
+Hunter_migrated_DW){
 	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
 	export PATH=~aestebanm/dev_R/ExpHunterSuite/inst/scripts:$PATH
 	export PATH=$script_dir:$PATH
 	?
-	degenes_Hunter.R -i $input -o ./ -t $target -m W
+	degenes_Hunter.R -i $input -o ./ -t $target -m DW --WGCNA_norm_method "DESeq2"
 
 	retVal=$?
        if [ $retVal -ne 0 ]; then
@@ -226,7 +226,7 @@ coRmiT_migrated){
        fi
 }
 
-func_og){
+func_og_ora){
 	source ~soft_bio_267/initializes/init_degenes_hunter
 	source $root_dir/config_daemon
 	export PATH=$aux_parsers_path:$PATH
@@ -234,7 +234,7 @@ func_og){
 	custom_nomenclature="$CODE_PATH/c3.tft.v2023.2.Hs.entrez.gmt,$CODE_PATH/c4.all.v2023.2.Hs.entrez.gmt,$CODE_PATH/c6.all.v2023.2.Hs.entrez.gmt,$CODE_PATH/h.all.v2023.2.Hs.entrez.gmt"
 	functional_hunter_options=`generate_DGHunter_command.rb -m "functional_Hunter"`
 	?
-	functional_Hunter.R $functional_hunter_options -i DESEQ_migrated_DELN)/ -t E -c 1 \
+	functional_Hunter.R $functional_hunter_options -i Hunter_migrated_DELNW)/ -t E -c 1 \
 						-o ./functional_enrichment
 	retVal=$?
        if [ $retVal -ne 0 ]; then
@@ -243,7 +243,7 @@ func_og){
        fi
 }
 
-func_migrated){
+func_migrated_ora){
 	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
 	export PATH=~aestebanm/dev_R/ExpHunterSuite/inst/scripts:$PATH
 	source $root_dir/config_daemon
@@ -252,7 +252,42 @@ func_migrated){
 	custom_nomenclature="$CODE_PATH/c3.tft.v2023.2.Hs.entrez.gmt,$CODE_PATH/c4.all.v2023.2.Hs.entrez.gmt,$CODE_PATH/c6.all.v2023.2.Hs.entrez.gmt,$CODE_PATH/h.all.v2023.2.Hs.entrez.gmt"
 	functional_hunter_options=`generate_DGHunter_command.rb -m "functional_Hunter"`
 	?
-	functional_Hunter.R $functional_hunter_options -i DESEQ_migrated_DELN)/ -t E -c 1 \
+	functional_Hunter.R $functional_hunter_options -i Hunter_migrated_DELNW)/ -t E -c 1 \
+						-o ./functional_enrichment
+	retVal=$?
+       if [ $retVal -ne 0 ]; then
+           echo ERROR: Last command exited with code $retVal
+           exit $retVal
+       fi
+}
+
+func_og_GSEA){
+	source ~soft_bio_267/initializes/init_degenes_hunter
+	source $root_dir/config_daemon
+	export PATH=$aux_parsers_path:$PATH
+	export PATH=$script_dir:$PATH
+	custom_nomenclature="$CODE_PATH/c3.tft.v2023.2.Hs.entrez.gmt,$CODE_PATH/c4.all.v2023.2.Hs.entrez.gmt,$CODE_PATH/c6.all.v2023.2.Hs.entrez.gmt,$CODE_PATH/h.all.v2023.2.Hs.entrez.gmt"
+	functional_hunter_options=`generate_DGHunter_command.rb -m "functional_Hunter"`
+	?
+	functional_Hunter.R $functional_hunter_options -A g -i Hunter_migrated_DELNW)/ -t E -c 1 \
+						-o ./functional_enrichment
+	retVal=$?
+       if [ $retVal -ne 0 ]; then
+           echo ERROR: Last command exited with code $retVal
+           exit $retVal
+       fi
+}
+
+func_migrated_GSEA){
+	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
+	export PATH=~aestebanm/dev_R/ExpHunterSuite/inst/scripts:$PATH
+	source $root_dir/config_daemon
+	export PATH=$aux_parsers_path:$PATH
+	export PATH=$script_dir:$PATH
+	custom_nomenclature="$CODE_PATH/c3.tft.v2023.2.Hs.entrez.gmt,$CODE_PATH/c4.all.v2023.2.Hs.entrez.gmt,$CODE_PATH/c6.all.v2023.2.Hs.entrez.gmt,$CODE_PATH/h.all.v2023.2.Hs.entrez.gmt"
+	functional_hunter_options=`generate_DGHunter_command.rb -m "functional_Hunter"`
+	?
+	functional_Hunter.R $functional_hunter_options -A g -i Hunter_migrated_DELNW)/ -t E -c 1 \
 						-o ./functional_enrichment
 	retVal=$?
        if [ $retVal -ne 0 ]; then
