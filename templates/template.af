@@ -260,38 +260,3 @@ func_migrated_ora){
            exit $retVal
        fi
 }
-
-func_og_GSEA){
-	source ~soft_bio_267/initializes/init_degenes_hunter
-	source $root_dir/config_daemon
-	export PATH=$aux_parsers_path:$PATH
-	export PATH=$script_dir:$PATH
-	custom_nomenclature="$CODE_PATH/c3.tft.v2023.2.Hs.entrez.gmt,$CODE_PATH/c4.all.v2023.2.Hs.entrez.gmt,$CODE_PATH/c6.all.v2023.2.Hs.entrez.gmt,$CODE_PATH/h.all.v2023.2.Hs.entrez.gmt"
-	functional_hunter_options=`generate_DGHunter_command.rb -m "functional_Hunter"`
-	?
-	functional_Hunter.R $functional_hunter_options -A g -i Hunter_migrated_DELNW)/ -t E -c 1 \
-						-o ./functional_enrichment
-	retVal=$?
-       if [ $retVal -ne 0 ]; then
-           echo ERROR: Last command exited with code $retVal
-           exit $retVal
-       fi
-}
-
-func_migrated_GSEA){
-	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
-	export PATH=~aestebanm/dev_R/ExpHunterSuite/inst/scripts:$PATH
-	source $root_dir/config_daemon
-	export PATH=$aux_parsers_path:$PATH
-	export PATH=$script_dir:$PATH
-	custom_nomenclature="$CODE_PATH/c3.tft.v2023.2.Hs.entrez.gmt,$CODE_PATH/c4.all.v2023.2.Hs.entrez.gmt,$CODE_PATH/c6.all.v2023.2.Hs.entrez.gmt,$CODE_PATH/h.all.v2023.2.Hs.entrez.gmt"
-	functional_hunter_options=`generate_DGHunter_command.rb -m "functional_Hunter"`
-	?
-	functional_Hunter.R $functional_hunter_options -A g -i Hunter_migrated_DELNW)/ -t E -c 1 \
-						-o ./functional_enrichment
-	retVal=$?
-       if [ $retVal -ne 0 ]; then
-           echo ERROR: Last command exited with code $retVal
-           exit $retVal
-       fi
-}
