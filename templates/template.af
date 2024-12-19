@@ -234,7 +234,7 @@ func_og_ora){
 	custom_nomenclature="$CODE_PATH/c3.tft.v2023.2.Hs.entrez.gmt,$CODE_PATH/c4.all.v2023.2.Hs.entrez.gmt,$CODE_PATH/c6.all.v2023.2.Hs.entrez.gmt,$CODE_PATH/h.all.v2023.2.Hs.entrez.gmt"
 	functional_hunter_options=`generate_DGHunter_command.rb -m "functional_Hunter"`
 	?
-	functional_Hunter.R $functional_hunter_options -i Hunter_migrated_DELNW)/ -t E -c 1 \
+	functional_Hunter.R $functional_hunter_options -i Hunter_migrated_DELNW)/ -t E -c 3 \
 						-o ./functional_enrichment
 	retVal=$?
        if [ $retVal -ne 0 ]; then
@@ -252,7 +252,7 @@ func_migrated_ora){
 	custom_nomenclature="$CODE_PATH/c3.tft.v2023.2.Hs.entrez.gmt,$CODE_PATH/c4.all.v2023.2.Hs.entrez.gmt,$CODE_PATH/c6.all.v2023.2.Hs.entrez.gmt,$CODE_PATH/h.all.v2023.2.Hs.entrez.gmt"
 	functional_hunter_options=`generate_DGHunter_command.rb -m "functional_Hunter"`
 	?
-	functional_Hunter.R $functional_hunter_options -i Hunter_migrated_DELNW)/ -t E -c 1 \
+	functional_Hunter.R $functional_hunter_options -i Hunter_migrated_DELNW)/ -t E -c 3 \
 						-o ./functional_enrichment
 	retVal=$?
        if [ $retVal -ne 0 ]; then
