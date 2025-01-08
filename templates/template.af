@@ -1,7 +1,6 @@
 
 Hunter_og_D){
 	source ~soft_bio_267/initializes/init_degenes_hunter
-	export PATH=$script_dir:$PATH
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m D
 
@@ -14,8 +13,6 @@ Hunter_og_D){
 
 Hunter_migrated_D){
 	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
-	export PATH=~aestebanm/dev_R/ExpHunterSuite/inst/scripts:$PATH
-	export PATH=$script_dir:$PATH
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m D
 
@@ -28,7 +25,6 @@ Hunter_migrated_D){
 
 Hunter_og_D_library_sizes){
 	source ~soft_bio_267/initializes/init_degenes_hunter
-	export PATH=$script_dir:$PATH
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m D --library_sizes $library_sizes
 
@@ -44,8 +40,6 @@ Hunter_migrated_D_library_sizes){
 	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
 	export DEGHUNTER_MODE=DEVELOPMENT
 	export OMP_NUM_THREADS=1
-	export PATH=~aestebanm/dev_R/ExpHunterSuite/inst/scripts:$PATH
-	export PATH=$script_dir:$PATH
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m D --library_sizes $library_sizes
 
@@ -58,7 +52,6 @@ Hunter_migrated_D_library_sizes){
 
 Hunter_og_E){
 	source ~soft_bio_267/initializes/init_degenes_hunter
-	export PATH=$script_dir:$PATH
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m E
 
@@ -71,8 +64,6 @@ Hunter_og_E){
 
 Hunter_migrated_E){
 	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
-	export PATH=~aestebanm/dev_R/ExpHunterSuite/inst/scripts:$PATH
-	export PATH=$script_dir:$PATH
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m E
 
@@ -85,7 +76,6 @@ Hunter_migrated_E){
 
 Hunter_og_L){
 	source ~soft_bio_267/initializes/init_degenes_hunter
-	export PATH=$script_dir:$PATH
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m L
 
@@ -98,8 +88,6 @@ Hunter_og_L){
 
 Hunter_migrated_L){
 	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
-	export PATH=~aestebanm/dev_R/ExpHunterSuite/inst/scripts:$PATH
-	export PATH=$script_dir:$PATH
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m L
 
@@ -112,7 +100,6 @@ Hunter_migrated_L){
 
 Hunter_og_N){
 	source ~soft_bio_267/initializes/init_degenes_hunter
-	export PATH=$script_dir:$PATH
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m N
 
@@ -125,8 +112,6 @@ Hunter_og_N){
 
 Hunter_migrated_N){
 	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
-	export PATH=~aestebanm/dev_R/ExpHunterSuite/inst/scripts:$PATH
-	export PATH=$script_dir:$PATH
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m N
 
@@ -139,7 +124,6 @@ Hunter_migrated_N){
 
 Hunter_og_DELNW){
 	source ~soft_bio_267/initializes/init_degenes_hunter
-	export PATH=$script_dir:$PATH
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m DELNW --WGCNA_norm_method "DESeq2"
 
@@ -152,8 +136,6 @@ Hunter_og_DELNW){
 
 Hunter_migrated_DELNW){
 	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
-	export PATH=~aestebanm/dev_R/ExpHunterSuite/inst/scripts:$PATH
-	export PATH=$script_dir:$PATH
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m DELNW --WGCNA_norm_method "DESeq2"
 
@@ -166,7 +148,6 @@ Hunter_migrated_DELNW){
 
 Hunter_og_DW){
 	source ~soft_bio_267/initializes/init_degenes_hunter
-	export PATH=$script_dir:$PATH
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m DW --WGCNA_norm_method "DESeq2"
 
@@ -179,8 +160,6 @@ Hunter_og_DW){
 
 Hunter_migrated_DW){
 	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
-	export PATH=~aestebanm/dev_R/ExpHunterSuite/inst/scripts:$PATH
-	export PATH=$script_dir:$PATH
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m DW --WGCNA_norm_method "DESeq2"
 
@@ -210,8 +189,6 @@ coRmiT_og){
 
 coRmiT_migrated){
 	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
-	export PATH=~aestebanm/dev_R/ExpHunterSuite/inst/scripts:$PATH
-	export PATH=$script_dir:$PATH
 	ln -s $cormit_data_path/temp.RData ./
 	ADD_OPT_CORR=`echo "$add_opt_corr" | tr ':' ' ' | tr ";" ","`
 	?
@@ -230,7 +207,6 @@ func_og_ora){
 	source ~soft_bio_267/initializes/init_degenes_hunter
 	source $root_dir/config_daemon
 	export PATH=$aux_parsers_path:$PATH
-	export PATH=$script_dir:$PATH
 	custom_nomenclature="$CODE_PATH/c3.tft.v2023.2.Hs.entrez.gmt,$CODE_PATH/c4.all.v2023.2.Hs.entrez.gmt,$CODE_PATH/c6.all.v2023.2.Hs.entrez.gmt,$CODE_PATH/h.all.v2023.2.Hs.entrez.gmt"
 	functional_hunter_options=`generate_DGHunter_command.rb -m "functional_Hunter"`
 	?
@@ -245,15 +221,37 @@ func_og_ora){
 
 func_migrated_ora){
 	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
-	export PATH=~aestebanm/dev_R/ExpHunterSuite/inst/scripts:$PATH
 	source $root_dir/config_daemon
 	export PATH=$aux_parsers_path:$PATH
-	export PATH=$script_dir:$PATH
 	custom_nomenclature="$CODE_PATH/c3.tft.v2023.2.Hs.entrez.gmt,$CODE_PATH/c4.all.v2023.2.Hs.entrez.gmt,$CODE_PATH/c6.all.v2023.2.Hs.entrez.gmt,$CODE_PATH/h.all.v2023.2.Hs.entrez.gmt"
 	functional_hunter_options=`generate_DGHunter_command.rb -m "functional_Hunter"`
 	?
 	functional_Hunter.R $functional_hunter_options -i Hunter_migrated_DELNW)/ -t E -c 3 \
 						-o ./functional_enrichment
+	retVal=$?
+       if [ $retVal -ne 0 ]; then
+           echo ERROR: Last command exited with code $retVal
+           exit $retVal
+       fi
+}
+
+clust2enrich_og){
+	source ~soft_bio_267/initializes/init_degenes_hunter
+	source $root_dir/config_daemon
+	?
+	clusters_to_enrichment.R -i $data_dir'/clusters_aggregated.txt' -w 2 -o functional_results -f MF,BP,CC,KEGG,Reactome -k ENSEMBL -O "Human"
+	retVal=$?
+       if [ $retVal -ne 0 ]; then
+           echo ERROR: Last command exited with code $retVal
+           exit $retVal
+       fi
+}
+
+clust2enrich_migrated){
+	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
+	source $root_dir/config_daemon
+	?
+	clusters_to_enrichment.R -i $data_dir'/clusters_aggregated.txt' -w 2 -o functional_results -f MF,BP,CC,KEGG,Reactome -k ENSEMBL -O "Human"
 	retVal=$?
        if [ $retVal -ne 0 ]; then
            echo ERROR: Last command exited with code $retVal
