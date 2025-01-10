@@ -3,36 +3,33 @@ Hunter_og_D){
 	source ~soft_bio_267/initializes/init_degenes_hunter
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m D
-
 	retVal=$?
-       if [ $retVal -ne 0 ]; then
-           echo ERROR: Last command exited with code $retVal
-           exit $retVal
-       fi
+    if [ $retVal -ne 0 ]; then
+        echo ERROR: Last command exited with code $retVal
+        exit $retVal
+    fi
 }
 
 Hunter_migrated_D){
 	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m D
-
 	retVal=$?
-       if [ $retVal -ne 0 ]; then
-           echo ERROR: Last command exited with code $retVal
-           exit $retVal
-       fi
+    if [ $retVal -ne 0 ]; then
+        echo ERROR: Last command exited with code $retVal
+        exit $retVal
+    fi
 }
 
 Hunter_og_D_library_sizes){
 	source ~soft_bio_267/initializes/init_degenes_hunter
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m D --library_sizes $library_sizes
-
 	retVal=$?
-       if [ $retVal -ne 0 ]; then
-           echo ERROR: Last command exited with code $retVal
-           exit $retVal
-       fi
+    if [ $retVal -ne 0 ]; then
+        echo ERROR: Last command exited with code $retVal
+        exit $retVal
+    fi
 }
 
 Hunter_migrated_D_library_sizes){
@@ -42,138 +39,128 @@ Hunter_migrated_D_library_sizes){
 	export OMP_NUM_THREADS=1
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m D --library_sizes $library_sizes
-
 	retVal=$?
-       if [ $retVal -ne 0 ]; then
-           echo ERROR: Last command exited with code $retVal
-           exit $retVal
-       fi
+    if [ $retVal -ne 0 ]; then
+        echo ERROR: Last command exited with code $retVal
+        exit $retVal
+    fi
 }
 
 Hunter_og_E){
 	source ~soft_bio_267/initializes/init_degenes_hunter
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m E
-
 	retVal=$?
-       if [ $retVal -ne 0 ]; then
-           echo ERROR: Last command exited with code $retVal
-           exit $retVal
-       fi
+    if [ $retVal -ne 0 ]; then
+        echo ERROR: Last command exited with code $retVal
+        exit $retVal
+    fi
 }
 
 Hunter_migrated_E){
 	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m E
-
 	retVal=$?
-       if [ $retVal -ne 0 ]; then
-           echo ERROR: Last command exited with code $retVal
-           exit $retVal
-       fi
+    if [ $retVal -ne 0 ]; then
+        echo ERROR: Last command exited with code $retVal
+        exit $retVal
+    fi
 }
 
 Hunter_og_L){
 	source ~soft_bio_267/initializes/init_degenes_hunter
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m L
-
 	retVal=$?
-       if [ $retVal -ne 0 ]; then
-           echo ERROR: Last command exited with code $retVal
-           exit $retVal
-       fi
+    if [ $retVal -ne 0 ]; then
+        echo ERROR: Last command exited with code $retVal
+        exit $retVal
+    fi
 }
 
 Hunter_migrated_L){
 	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m L
-
 	retVal=$?
-       if [ $retVal -ne 0 ]; then
-           echo ERROR: Last command exited with code $retVal
-           exit $retVal
-       fi
+    if [ $retVal -ne 0 ]; then
+        echo ERROR: Last command exited with code $retVal
+        exit $retVal
+    fi
 }
 
 Hunter_og_N){
 	source ~soft_bio_267/initializes/init_degenes_hunter
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m N
-
 	retVal=$?
-       if [ $retVal -ne 0 ]; then
-           echo ERROR: Last command exited with code $retVal
-           exit $retVal
-       fi
+    if [ $retVal -ne 0 ]; then
+        echo ERROR: Last command exited with code $retVal
+        exit $retVal
+    fi
 }
 
 Hunter_migrated_N){
 	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m N
-
 	retVal=$?
-       if [ $retVal -ne 0 ]; then
-           echo ERROR: Last command exited with code $retVal
-           exit $retVal
-       fi
+    if [ $retVal -ne 0 ]; then
+        echo ERROR: Last command exited with code $retVal
+        exit $retVal
+    fi
 }
 
 Hunter_og_DELNW){
 	source ~soft_bio_267/initializes/init_degenes_hunter
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m DELNW --WGCNA_norm_method "DESeq2"
-
 	retVal=$?
-       if [ $retVal -ne 0 ]; then
-           echo ERROR: Last command exited with code $retVal
-           exit $retVal
-       fi
+    if [ $retVal -ne 0 ]; then
+        echo ERROR: Last command exited with code $retVal
+        exit $retVal
+    fi
 }
 
 Hunter_migrated_DELNW){
 	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m DELNW --WGCNA_norm_method "DESeq2"
-
 	retVal=$?
-       if [ $retVal -ne 0 ]; then
-           echo ERROR: Last command exited with code $retVal
-           exit $retVal
-       fi
+    if [ $retVal -ne 0 ]; then
+        echo ERROR: Last command exited with code $retVal
+        exit $retVal
+    fi
 }
 
 Hunter_og_DW){
 	source ~soft_bio_267/initializes/init_degenes_hunter
 	?
-	degenes_Hunter.R -i $input -o ./ -t $target -m DW --WGCNA_norm_method "DESeq2"
-
+	degenes_Hunter.R -i $input -o ./ -t $target -m DW --WGCNA_norm_method "DESeq2" --WGCNA_all
 	retVal=$?
-       if [ $retVal -ne 0 ]; then
-           echo ERROR: Last command exited with code $retVal
-           exit $retVal
-       fi
+    if [ $retVal -ne 0 ]; then
+        echo ERROR: Last command exited with code $retVal
+        exit $retVal
+    fi
 }
 
 Hunter_migrated_DW){
 	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
 	?
-	degenes_Hunter.R -i $input -o ./ -t $target -m DW --WGCNA_norm_method "DESeq2"
-
+	degenes_Hunter.R -i $input -o ./ -t $target -m DW --WGCNA_norm_method "DESeq2" --WGCNA_all
 	retVal=$?
-       if [ $retVal -ne 0 ]; then
-           echo ERROR: Last command exited with code $retVal
-           exit $retVal
-       fi
+    if [ $retVal -ne 0 ]; then
+        echo ERROR: Last command exited with code $retVal
+        exit $retVal
+    fi
 }
 
 coRmiT_og){
 	source ~soft_bio_267/initializes/init_degenes_hunter
 	export PATH=~josecordoba/software/ExpHunterSuite/inst/scripts/:$PATH
-	ln -s $cormit_data_path/temp.RData ./
+	rm temp.RData
+	ln -s $data_dir/temp.RData ./
 	ADD_OPT_CORR=`echo "$add_opt_corr" | tr ':' ' ' | tr ";" ","`
 	?
 	coRmiT.R --strategies "$strats" -r $rnaseq_input_path \
@@ -181,15 +168,16 @@ coRmiT_og){
 			 -R miRNA_target.html -M $Multimir_path/parsed_raw_score_$organism.RData \
 			 -c "'"$CORR_THRS"'" -u 2 -T -o results $ADD_OPT_CORR
 	retVal=$?
-       if [ $retVal -ne 0 ]; then
-           echo ERROR: Last command exited with code $retVal
-           exit $retVal
-       fi
+    if [ $retVal -ne 0 ]; then
+        echo ERROR: Last command exited with code $retVal
+        exit $retVal
+    fi
 }
 
 coRmiT_migrated){
 	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
-	ln -s $cormit_data_path/temp.RData ./
+	rm temp.RData
+	ln -s $data_dir/temp.RData ./
 	ADD_OPT_CORR=`echo "$add_opt_corr" | tr ':' ' ' | tr ";" ","`
 	?
 	coRmiT.R --strategies "$strats" -r $rnaseq_input_path \
@@ -197,64 +185,62 @@ coRmiT_migrated){
 			 -R miRNA_target.html -M $Multimir_path/parsed_raw_score_$organism.RData \
 			 -c "'"$CORR_THRS"'" -u 2 -T -o results $ADD_OPT_CORR
 	retVal=$?
-       if [ $retVal -ne 0 ]; then
-           echo ERROR: Last command exited with code $retVal
-           exit $retVal
-       fi
+    if [ $retVal -ne 0 ]; then
+    	echo ERROR: Last command exited with code $retVal
+        exit $retVal
+    fi
 }
 
 func_og_ora){
 	source ~soft_bio_267/initializes/init_degenes_hunter
 	source $root_dir/config_daemon
 	export PATH=$aux_parsers_path:$PATH
-	custom_nomenclature="$CODE_PATH/c3.tft.v2023.2.Hs.entrez.gmt,$CODE_PATH/c4.all.v2023.2.Hs.entrez.gmt,$CODE_PATH/c6.all.v2023.2.Hs.entrez.gmt,$CODE_PATH/h.all.v2023.2.Hs.entrez.gmt"
+	custom_nomenclature="$data_dir/c3.tft.v2023.2.Hs.entrez.gmt,$data_dir/c4.all.v2023.2.Hs.entrez.gmt,$data_dir/c6.all.v2023.2.Hs.entrez.gmt,$data_dir/h.all.v2023.2.Hs.entrez.gmt"
 	functional_hunter_options=`generate_DGHunter_command.rb -m "functional_Hunter"`
 	?
-	functional_Hunter.R $functional_hunter_options -i Hunter_migrated_DELNW)/ -t E -c 3 \
+	functional_Hunter.R $functional_hunter_options -i Hunter_og_DELNW)/ -t E -c 3 \
 						-o ./functional_enrichment
 	retVal=$?
-       if [ $retVal -ne 0 ]; then
-           echo ERROR: Last command exited with code $retVal
-           exit $retVal
-       fi
+    if [ $retVal -ne 0 ]; then
+        echo ERROR: Last command exited with code $retVal
+        exit $retVal
+    fi
 }
 
 func_migrated_ora){
 	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
 	source $root_dir/config_daemon
 	export PATH=$aux_parsers_path:$PATH
-	custom_nomenclature="$CODE_PATH/c3.tft.v2023.2.Hs.entrez.gmt,$CODE_PATH/c4.all.v2023.2.Hs.entrez.gmt,$CODE_PATH/c6.all.v2023.2.Hs.entrez.gmt,$CODE_PATH/h.all.v2023.2.Hs.entrez.gmt"
+	custom_nomenclature="$data_dir/c3.tft.v2023.2.Hs.entrez.gmt,$data_dir/c4.all.v2023.2.Hs.entrez.gmt,$data_dir/c6.all.v2023.2.Hs.entrez.gmt,$data_dir/h.all.v2023.2.Hs.entrez.gmt"
 	functional_hunter_options=`generate_DGHunter_command.rb -m "functional_Hunter"`
 	?
 	functional_Hunter.R $functional_hunter_options -i Hunter_migrated_DELNW)/ -t E -c 3 \
 						-o ./functional_enrichment
 	retVal=$?
-       if [ $retVal -ne 0 ]; then
-           echo ERROR: Last command exited with code $retVal
-           exit $retVal
-       fi
+   	if [ $retVal -ne 0 ]; then
+   	   echo ERROR: Last command exited with code $retVal
+   	   exit $retVal
+   	fi
 }
 
 clust2enrich_og){
 	source ~soft_bio_267/initializes/init_degenes_hunter
-	source $root_dir/config_daemon
 	?
 	clusters_to_enrichment.R -i $data_dir'/clusters_aggregated.txt' -w 2 -o functional_results -f MF,BP,CC,KEGG,Reactome -k ENSEMBL -O "Human"
 	retVal=$?
-       if [ $retVal -ne 0 ]; then
-           echo ERROR: Last command exited with code $retVal
-           exit $retVal
-       fi
+   if [ $retVal -ne 0 ]; then
+       echo ERROR: Last command exited with code $retVal
+       exit $retVal
+   fi
 }
 
 clust2enrich_migrated){
 	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
-	source $root_dir/config_daemon
 	?
 	clusters_to_enrichment.R -i $data_dir'/clusters_aggregated.txt' -w 2 -o functional_results -f MF,BP,CC,KEGG,Reactome -k ENSEMBL -O "Human"
 	retVal=$?
-       if [ $retVal -ne 0 ]; then
-           echo ERROR: Last command exited with code $retVal
-           exit $retVal
-       fi
+   if [ $retVal -ne 0 ]; then
+       echo ERROR: Last command exited with code $retVal
+       exit $retVal
+   fi
 }
