@@ -11,7 +11,7 @@ Hunter_og_D){
 }
 
 Hunter_migrated_D){
-	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
+	source ~aestebanm/initializes/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m D
 	retVal=$?
@@ -34,7 +34,7 @@ Hunter_og_D_library_sizes){
 
 Hunter_migrated_D_library_sizes){
 	module load latex/3.14
-	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
+	source ~aestebanm/initializes/init_Hunter_dev
 	export DEGHUNTER_MODE=DEVELOPMENT
 	export OMP_NUM_THREADS=1
 	?
@@ -58,7 +58,7 @@ Hunter_og_E){
 }
 
 Hunter_migrated_E){
-	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
+	source ~aestebanm/initializes/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m E
 	retVal=$?
@@ -80,7 +80,7 @@ Hunter_og_L){
 }
 
 Hunter_migrated_L){
-	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
+	source ~aestebanm/initializes/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m L
 	retVal=$?
@@ -102,7 +102,7 @@ Hunter_og_N){
 }
 
 Hunter_migrated_N){
-	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
+	source ~aestebanm/initializes/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m N
 	retVal=$?
@@ -124,7 +124,7 @@ Hunter_og_DELNW){
 }
 
 Hunter_migrated_DELNW){
-	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
+	source ~aestebanm/initializes/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m DELNW --WGCNA_norm_method "DESeq2"
 	retVal=$?
@@ -146,7 +146,7 @@ Hunter_og_DW){
 }
 
 Hunter_migrated_DW){
-	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
+	source ~aestebanm/initializes/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m DW --WGCNA_norm_method "DESeq2" --WGCNA_all
 	retVal=$?
@@ -175,7 +175,7 @@ coRmiT_og){
 }
 
 coRmiT_migrated){
-	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
+	source ~aestebanm/initializes/init_Hunter_dev
 	rm temp.RData
 	ln -s $data_dir/temp.RData ./
 	ADD_OPT_CORR=`echo "$add_opt_corr" | tr ':' ' ' | tr ";" ","`
@@ -208,7 +208,7 @@ func_og_ora){
 }
 
 func_migrated_ora){
-	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
+	source ~aestebanm/initializes/init_Hunter_dev
 	source $root_dir/config_daemon
 	export PATH=$aux_parsers_path:$PATH
 	custom_nomenclature="$data_dir/c3.tft.v2023.2.Hs.entrez.gmt,$data_dir/c4.all.v2023.2.Hs.entrez.gmt,$data_dir/c6.all.v2023.2.Hs.entrez.gmt,$data_dir/h.all.v2023.2.Hs.entrez.gmt"
@@ -235,7 +235,7 @@ clust2enrich_og){
 }
 
 clust2enrich_migrated){
-	source ~aestebanm/projects/Hunter_migration/scripts/init_Hunter_dev
+	source ~aestebanm/initializes/init_Hunter_dev
 	?
 	clusters_to_enrichment.R -i $data_dir'/clusters_aggregated.txt' -w 2 -o functional_results -f MF,BP,CC,KEGG,Reactome -k ENSEMBL -O "Human"
 	retVal=$?
