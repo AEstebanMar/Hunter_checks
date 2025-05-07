@@ -1,0 +1,7 @@
+sample	treat
+WT1	Ctrl
+WT2	Ctrl
+WT3	Ctrl
+KO1	Treat
+KO2	Treat
+KO3	Treat
