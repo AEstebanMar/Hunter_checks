@@ -8,10 +8,10 @@ source $CODE_PATH/config_daemon
 template=$CODE_PATH/templates/template.af
 script_dir=$CODE_PATH/scripts
 target=$CODE_PATH/my_target.txt
-rnaseq_input_path=$CODE_PATH/ctrl_vs_dox_cell
-mirnaseq_input_path=$CODE_PATH/CTL_vs_DOX_cell
+rnaseq_input_path=$CODE_PATH/ctrl_vs_mut_bicor
+mirnaseq_input_path=$CODE_PATH/CTRL_VS_MUT_BICOR
 add_opt_corr='--save_temp:--tag_filter:prevalent;prevalent:-u:2:--output_pairs:validated'
-strats=\"\"
+strats=\"EE:Eh:Ed:hd:hE:hh\"
 mode=$1
 aux_opt=$2
 
@@ -23,16 +23,16 @@ variables=`echo -e "
 	\\$target=$data_dir/my_target.txt,
 	\\$output_dir=$output_dir,
 	\\$library_sizes=$data_dir/metric_table,
-	\\$rnaseq_input_path=$data_dir/ctrl_vs_dox_cell,
+	\\$rnaseq_input_path=$data_dir/CTL_vs_DOX_cell,
 	\\$strats=$strats,
 	\\$mirnaseq_input_path=$data_dir/CTL_vs_DOX_cell,
 	\\$Multimir_path=$data_dir/p_hsa,
-	\\$CORR_THRS='-0.55:-0.6:-0.65:-0.7:-0.75:-0.8:-0.85:-0.9:-0.95',
+	\\$CORR_THRS='-0.5:-0.55:-0.6:-0.65:-0.7:-0.75:-0.8:-0.85:-0.9:-0.95',
 	\\$add_opt_corr=$add_opt_corr,
-	\\$organism='hsa',
+	\\$organism='mmu',
 	\\$aux_parsers_path=$CODE_PATH/aux_parsers,
 	\\$fun_pvalue=0.5,
-	\\$fun_an_type='KgRdD',
+	\\$fun_an_type='KgRd',
 	\\$fun_an_performance='o',
 	\\$GO_modules='MBC',
 	\\$fun_remote_mode='',
@@ -44,7 +44,7 @@ variables=`echo -e "
 	" | tr -d [:space:]`
 
 if [ "$mode" == "exec" ] ; then
-	AutoFlow -w $template -b -V $variables $aux_opt -o exec_DEG_wf
+	AutoFlow -w $template -V $variables $aux_opt -o exec_DEG_wf -b
 
 elif [ "$mode" == "check" ]; then
 	flow_logger -w -e exec_DEG_wf -r all
