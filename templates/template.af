@@ -21,7 +21,7 @@ Hunter_migrated_D){
     fi
 }
 
-%Hunter_og_mirna){
+Hunter_og_mirna){
 	# WIP missing mirnas
 	source ~soft_bio_267/initializes/init_degenes_hunter
 	?
@@ -33,7 +33,7 @@ Hunter_migrated_D){
     fi
 }
 
-%Hunter_migrated_mirna){
+Hunter_migrated_mirna){
 	# WIP missing mirnas
 	source ~aestebanm/initializes/init_Hunter_dev
 	?
@@ -262,8 +262,30 @@ clust2enrich_migrated){
 	?
 	clusters_to_enrichment.R -i $data_dir'/clusters_aggregated.txt' -w 2 -o functional_results -f MF,BP,CC,KEGG,Reactome -k ENSEMBL -O "Human"
 	retVal=$?
-   if [ $retVal -ne 0 ]; then
+    if [ $retVal -ne 0 ]; then
        echo ERROR: Last command exited with code $retVal
        exit $retVal
-   fi
+    fi
+}
+
+multivar_mine_og){
+	source ~soft_bio_267/initializes/init_degenes_hunter_alpha
+	?
+	multivar_mine.R -i $multivar_files -A $multivar_active_files -S $multivar_supp_files -n 2
+	retVal=$?
+	if [ $retVal -ne 0 ]; then
+       echo ERROR: Last command exited with code $retVal
+       exit $retVal
+   	fi
+}
+
+multivar_mine_migrated){
+	source ~aestebanm/initializes/init_Hunter_dev
+	?
+	multivar_mine.R -i "severity_scales.txt,phenotypes.txt,metabolomics.txt" -A "metabolomics.txt:s,phenotypes.txt:n" -S "severity_scales.txt:c" -c -n 2
+	retVal=$?
+	if [ $retVal -ne 0 ]; then
+       echo ERROR: Last command exited with code $retVal
+       exit $retVal
+   	fi
 }
