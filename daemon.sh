@@ -12,6 +12,7 @@ rnaseq_input_path=$CODE_PATH/ctrl_vs_mut_bicor
 mirnaseq_input_path=$CODE_PATH/CTRL_VS_MUT_BICOR
 add_opt_corr='--save_temp:--tag_filter:prevalent;prevalent:-u:2:--output_pairs:validated'
 strats=\"EE:Eh:Ed:hd:hE:hh\"
+multivar_data=$data_dir/multivar_data
 mode=$1
 aux_opt=$2
 
@@ -39,7 +40,10 @@ variables=`echo -e "
 	\\$universe='',
 	\\$CODE_PATH=$CODE_PATH,
 	\\$fun_organism='Human',
-	\\$annotation_list=''
+	\\$annotation_list='',
+	\\$multivar_files=$multivar_data/"metabolomics.txt",
+	\\$multivar_active_files=$multivar_data/"phenotypes.txt",
+	\\$multivar_supp_files=$multivar_data/"severity_scales.txt"
 
 	" | tr -d [:space:]`
 
