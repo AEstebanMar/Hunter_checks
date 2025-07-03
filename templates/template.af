@@ -188,7 +188,7 @@ coRmiT_og){
 	?
 	coRmiT.R --strategies "$strats" -r $rnaseq_input_path \
 			 -m $mirnaseq_input_path --organism $organism \
-			 -R miRNA_target.html -M $Multimir_path/parsed_raw_score_$organism.RData \
+			 -R miRNA_target.html -M $Multimir_path \
 			 -c "'"$CORR_THRS"'" -u 2 -T -o results $ADD_OPT_CORR
 	retVal=$?
     if [ $retVal -ne 0 ]; then
@@ -200,12 +200,12 @@ coRmiT_og){
 coRmiT_migrated){
 	source ~aestebanm/initializes/init_Hunter_dev
 	rm temp.RData
-	ln -s $data_dir/temp.RData ./
+	# ln -s $data_dir/temp.RData ./
 	ADD_OPT_CORR=`echo "$add_opt_corr" | tr ':' ' ' | tr ";" ","`
 	?
 	coRmiT.R --strategies "$strats" -r $rnaseq_input_path \
 			 -m $mirnaseq_input_path --organism $organism \
-			 -R miRNA_target.html -M $Multimir_path/parsed_raw_score_$organism.RData \
+			 -R miRNA_target.html -M $Multimir_path \
 			 -c "'"$CORR_THRS"'" -u 2 -T -o results $ADD_OPT_CORR
 	retVal=$?
     if [ $retVal -ne 0 ]; then
