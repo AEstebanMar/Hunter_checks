@@ -271,7 +271,7 @@ clust2enrich_migrated){
 multivar_mine_og){
 	source ~soft_bio_267/initializes/init_degenes_hunter_alpha
 	?
-	multivar_mine.R -i $multivar_files -A $multivar_active_files -S $multivar_supp_files -n 2
+	multivar_mine.R "$multivar_data/metabolomics.txt,$multivar_data/phenotypes.txt,$multivar_data/severity_scales.txt" -A "metabolomics.txt:s,phenotypes.txt:n" -S "severity_scales.txt:c" -c -n 2
 	retVal=$?
 	if [ $retVal -ne 0 ]; then
        echo ERROR: Last command exited with code $retVal
@@ -282,7 +282,7 @@ multivar_mine_og){
 multivar_mine_migrated){
 	source ~aestebanm/initializes/init_Hunter_dev
 	?
-	multivar_mine.R -i "severity_scales.txt,phenotypes.txt,metabolomics.txt" -A "metabolomics.txt:s,phenotypes.txt:n" -S "severity_scales.txt:c" -c -n 2
+	multivar_mine.R "$multivar_data/metabolomics.txt,$multivar_data/phenotypes.txt,$multivar_data/severity_scales.txt" -A "metabolomics.txt:s,phenotypes.txt:n" -S "severity_scales.txt:c" -c -n 2
 	retVal=$?
 	if [ $retVal -ne 0 ]; then
        echo ERROR: Last command exited with code $retVal

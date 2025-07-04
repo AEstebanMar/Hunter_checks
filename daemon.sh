@@ -44,9 +44,7 @@ variables=`echo -e "
 	\\$CODE_PATH=$CODE_PATH,
 	\\$fun_organism='Human',
 	\\$annotation_list='',
-	\\$multivar_files=$multivar_data/"metabolomics.txt",
-	\\$multivar_active_files=$multivar_data/"phenotypes.txt",
-	\\$multivar_supp_files=$multivar_data/"severity_scales.txt"
+	\\$multivar_data=$multivar_data
 
 	" | tr -d [:space:]`
 
