@@ -1,16 +1,5 @@
 
-Hunter_og_D){
-	source ~soft_bio_267/initializes/init_degenes_hunter
-	?
-	degenes_Hunter.R -i $input -o ./ -t $target -m D
-	retVal=$?
-    if [ $retVal -ne 0 ]; then
-        echo ERROR: Last command exited with code $retVal
-        exit $retVal
-    fi
-}
-
-Hunter_migrated_D){
+Hunter_D){
 	source ~aestebanm/initializes/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m D
@@ -21,19 +10,18 @@ Hunter_migrated_D){
     fi
 }
 
-Hunter_og_mirna){
-	# WIP missing mirnas
-	source ~soft_bio_267/initializes/init_degenes_hunter
+Hunter_DW){
+	source ~aestebanm/initializes/init_Hunter_dev
 	?
-	degenes_Hunter.R -i $input -o ./ -t $target -m D
+	degenes_Hunter.R -i $input -o ./ -t $target -m DW
 	retVal=$?
     if [ $retVal -ne 0 ]; then
-        echo ERROR: Last command exited with code $retVal
+        echo ERROR: Last command exited with cosde $retVal
         exit $retVal
     fi
 }
 
-Hunter_migrated_mirna){
+Hunter_mirna){
 	# WIP missing mirnas
 	source ~aestebanm/initializes/init_Hunter_dev
 	?
@@ -45,18 +33,7 @@ Hunter_migrated_mirna){
     fi
 }
 
-Hunter_og_D_library_sizes){
-	source ~soft_bio_267/initializes/init_degenes_hunter
-	?
-	degenes_Hunter.R -i $input -o ./ -t $target -m D --library_sizes $library_sizes
-	retVal=$?
-    if [ $retVal -ne 0 ]; then
-        echo ERROR: Last command exited with code $retVal
-        exit $retVal
-    fi
-}
-
-Hunter_migrated_D_library_sizes){
+Hunter_D_library_sizes){
 	module load latex/3.14
 	source ~aestebanm/initializes/init_Hunter_dev
 	export DEGHUNTER_MODE=DEVELOPMENT
@@ -70,18 +47,7 @@ Hunter_migrated_D_library_sizes){
     fi
 }
 
-Hunter_og_E){
-	source ~soft_bio_267/initializes/init_degenes_hunter
-	?
-	degenes_Hunter.R -i $input -o ./ -t $target -m E
-	retVal=$?
-    if [ $retVal -ne 0 ]; then
-        echo ERROR: Last command exited with code $retVal
-        exit $retVal
-    fi
-}
-
-Hunter_migrated_E){
+Hunter_E){
 	source ~aestebanm/initializes/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m E
@@ -92,18 +58,7 @@ Hunter_migrated_E){
     fi
 }
 
-Hunter_og_L){
-	source ~soft_bio_267/initializes/init_degenes_hunter
-	?
-	degenes_Hunter.R -i $input -o ./ -t $target -m L
-	retVal=$?
-    if [ $retVal -ne 0 ]; then
-        echo ERROR: Last command exited with code $retVal
-        exit $retVal
-    fi
-}
-
-Hunter_migrated_L){
+Hunter_L){
 	source ~aestebanm/initializes/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m L
@@ -114,18 +69,7 @@ Hunter_migrated_L){
     fi
 }
 
-Hunter_og_N){
-	source ~soft_bio_267/initializes/init_degenes_hunter
-	?
-	degenes_Hunter.R -i $input -o ./ -t $target -m N
-	retVal=$?
-    if [ $retVal -ne 0 ]; then
-        echo ERROR: Last command exited with code $retVal
-        exit $retVal
-    fi
-}
-
-Hunter_migrated_N){
+Hunter_N){
 	source ~aestebanm/initializes/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m N
@@ -136,18 +80,7 @@ Hunter_migrated_N){
     fi
 }
 
-Hunter_og_DELNW){
-	source ~soft_bio_267/initializes/init_degenes_hunter
-	?
-	degenes_Hunter.R -i $input -o ./ -t $target -m DELNW --WGCNA_norm_method "DESeq2"
-	retVal=$?
-    if [ $retVal -ne 0 ]; then
-        echo ERROR: Last command exited with code $retVal
-        exit $retVal
-    fi
-}
-
-Hunter_migrated_DELNW){
+Hunter_DELNW){
 	source ~aestebanm/initializes/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m DELNW --WGCNA_norm_method "DESeq2"
@@ -158,18 +91,7 @@ Hunter_migrated_DELNW){
     fi
 }
 
-Hunter_og_DW){
-	source ~soft_bio_267/initializes/init_degenes_hunter
-	?
-	degenes_Hunter.R -i $input -o ./ -t $target -m DW --WGCNA_norm_method "DESeq2" --WGCNA_all
-	retVal=$?
-    if [ $retVal -ne 0 ]; then
-        echo ERROR: Last command exited with code $retVal
-        exit $retVal
-    fi
-}
-
-Hunter_migrated_DW){
+Hunter_DW){
 	source ~aestebanm/initializes/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m DW --WGCNA_norm_method "DESeq2" --WGCNA_all
@@ -180,28 +102,7 @@ Hunter_migrated_DW){
     fi
 }
 
-coRmiT_og){
-	source ~soft_bio_267/initializes/init_degenes_hunter
-	#export PATH=~josecordoba/software/ExpHunterSuite/inst/scripts/:$PATH
-	rm temp.RData
-	ADD_OPT_CORR=`echo "$add_opt_corr" | tr ':' ' ' | tr ";" ","`
-	?
-	coRmiT.R --strategies "$strats" -r $rnaseq_input_path \
-			 -m $mirnaseq_input_path --organism $organism \
-			 -R miRNA_target.html -M $Multimir_path \
-			 -c "'"$CORR_THRS"'" -u 2 -T -o results $ADD_OPT_CORR
-	add_annotation.R -i $mirnaseq_input_path/Common_results/hunter_results_table.txt \
-					 -o results.txt \
-					 -m \
-					 --column rownames
-	retVal=$?
-    if [ $retVal -ne 0 ]; then
-        echo ERROR: Last command exited with code $retVal
-        exit $retVal
-    fi
-}
-
-coRmiT_migrated){
+coRmiT){
 	source ~aestebanm/initializes/init_Hunter_dev
 	rm temp.RData
 	# ln -s $data_dir/temp.RData ./
@@ -222,31 +123,15 @@ coRmiT_migrated){
     fi
 }
 
-func_og_ora){
-	source ~soft_bio_267/initializes/init_degenes_hunter
-	source $root_dir/config_daemon
-	export PATH=$aux_parsers_path:$PATH
-	custom_nomenclature="$data_dir/c3.tft.v2023.2.Hs.entrez.gmt,$data_dir/c4.all.v2023.2.Hs.entrez.gmt,$data_dir/c6.all.v2023.2.Hs.entrez.gmt,$data_dir/h.all.v2023.2.Hs.entrez.gmt"
-	functional_hunter_options=`generate_DGHunter_command.rb -m "functional_Hunter"`
-	?
-	functional_Hunter.R $functional_hunter_options -i Hunter_og_DELNW)/ -t E -c 3 \
-						-o ./functional_enrichment
-	retVal=$?
-    if [ $retVal -ne 0 ]; then
-        echo ERROR: Last command exited with code $retVal
-        exit $retVal
-    fi
-}
-
-func_migrated_ora){
+func_ora_D){
 	source ~aestebanm/initializes/init_Hunter_dev
 	source $root_dir/config_daemon
 	export PATH=$aux_parsers_path:$PATH
 	custom_nomenclature="$data_dir/c3.tft.v2023.2.Hs.entrez.gmt,$data_dir/c4.all.v2023.2.Hs.entrez.gmt,$data_dir/c6.all.v2023.2.Hs.entrez.gmt,$data_dir/h.all.v2023.2.Hs.entrez.gmt"
 	functional_hunter_options=`generate_DGHunter_command.rb -m "functional_Hunter"`
 	?
-	functional_Hunter.R $functional_hunter_options -i Hunter_migrated_DELNW)/ -t E -c 3 \
-						-o ./functional_enrichment
+	functional_Hunter.R $functional_hunter_options -i Hunter_D)/ -t E -c 3 \
+						-o ./functional_enrichment --size_item 0.1 --size_category 1.5 --size_edge 0.1 --hilight "chromosome segregation" --hilight_alpha 0.7 --node_label "category"
 	retVal=$?
    	if [ $retVal -ne 0 ]; then
    	   echo ERROR: Last command exited with code $retVal
@@ -254,21 +139,43 @@ func_migrated_ora){
    	fi
 }
 
-clust2enrich_og){
-	source ~soft_bio_267/initializes/init_degenes_hunter
+func_ora_DW){
+	source ~aestebanm/initializes/init_Hunter_dev
+	source $root_dir/config_daemon
+	export PATH=$aux_parsers_path:$PATH
+	custom_nomenclature="$data_dir/c3.tft.v2023.2.Hs.entrez.gmt,$data_dir/c4.all.v2023.2.Hs.entrez.gmt,$data_dir/c6.all.v2023.2.Hs.entrez.gmt,$data_dir/h.all.v2023.2.Hs.entrez.gmt"
+	functional_hunter_options=`generate_DGHunter_command.rb -m "functional_Hunter"`
 	?
-	clusters_to_enrichment.R -i $data_dir'/clusters_aggregated.txt' -w 2 -o functional_results -f MF,BP,CC,KEGG,Reactome -k ENSEMBL -O "Human"
+	functional_Hunter.R $functional_hunter_options -i Hunter_DW)/ -t E -c 3 \
+						-o ./functional_enrichment --size_item 0.1 --size_category 1.5 --size_edge 0.1 --hilight "chromosome segregation" --hilight_alpha 0.7 --node_label "category"
 	retVal=$?
-   if [ $retVal -ne 0 ]; then
-       echo ERROR: Last command exited with code $retVal
-       exit $retVal
-   fi
+   	if [ $retVal -ne 0 ]; then
+   	   echo ERROR: Last command exited with code $retVal
+   	   exit $retVal
+   	fi
 }
 
-clust2enrich_migrated){
+func_ora_DELNW){
+	source ~aestebanm/initializes/init_Hunter_dev
+	source $root_dir/config_daemon
+	export PATH=$aux_parsers_path:$PATH
+	custom_nomenclature="$data_dir/c3.tft.v2023.2.Hs.entrez.gmt,$data_dir/c4.all.v2023.2.Hs.entrez.gmt,$data_dir/c6.all.v2023.2.Hs.entrez.gmt,$data_dir/h.all.v2023.2.Hs.entrez.gmt"
+	functional_hunter_options=`generate_DGHunter_command.rb -m "functional_Hunter"`
+	?
+	functional_Hunter.R $functional_hunter_options -i Hunter_DELNW)/ -t E -c 3 \
+						-o ./functional_enrichment --size_item 0.1 --size_category 1.5 --size_edge 0.1 --hilight "chromosome segregation" --hilight_alpha 0.7 --node_label "category"
+	retVal=$?
+   	if [ $retVal -ne 0 ]; then
+   	   echo ERROR: Last command exited with code $retVal
+   	   exit $retVal
+   	fi
+}
+
+clust2enrich){
 	source ~aestebanm/initializes/init_Hunter_dev
 	?
-	clusters_to_enrichment.R -i $data_dir'/clusters_aggregated.txt' -w 2 -o functional_results -f MF,BP,CC,KEGG,Reactome -k ENSEMBL -O "Human"
+	clusters_to_enrichment.R -i $data_dir'/clusters_aggregated.txt' -w 3 -o functional_results -f MF -k ENSEMBL -O "Human" --size_item 0.1 --size_category 0.5 --size_edge 0.1 --hilight "ATPase binding" --hilight_alpha 0.7 --node_label "category"
+	# clusters_to_enrichment.R -i $data_dir'/clusters_aggregated.txt' -w 3 -o functional_results -f MF -k ENSEMBL -O "Human" --cex_label_category 1.5 --cex_line 0.6 --node_label "category" --cex_pie2axis 1.4
 	retVal=$?
     if [ $retVal -ne 0 ]; then
        echo ERROR: Last command exited with code $retVal
@@ -276,18 +183,7 @@ clust2enrich_migrated){
     fi
 }
 
-multivar_mine_og){
-    source ~soft_bio_267/initializes/init_degenes_hunter_alpha
-    ?
-    multivar_mine.R -i "$multivar_data/metabolomics.txt,$multivar_data/phenotypes.txt,$multivar_data/severity_scales.txt" -A "metabolomics.txt:s,phenotypes.txt:n" -S "severity_scales.txt:c" -c -n 2
-    retVal=$?
-    if [ $retVal -ne 0 ]; then
-       echo ERROR: Last command exited with code $retVal
-       exit $retVal
-    fi
-}
-
-multivar_mine_migrated){
+multivar_mine){
     source ~aestebanm/initializes/init_Hunter_dev
     ?
     multivar_mine.R -i "$multivar_data/metabolomics.txt,$multivar_data/phenotypes.txt,$multivar_data/severity_scales.txt" -A "metabolomics.txt:s,phenotypes.txt:n" -S "severity_scales.txt:c" -c -n 2
@@ -296,4 +192,10 @@ multivar_mine_migrated){
        echo ERROR: Last command exited with code $retVal
        exit $retVal
     fi
+}
+
+dummy_Hunter){
+	source ~aestebanm/initializes/init_Hunter_dev
+	?
+	degenes_Hunter.R -m "F" -e $data_dir/dummy_DEGs -o output
 }
