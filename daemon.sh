@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 
-source ~soft_bio_267/initializes/init_autoflow
+source ~/dev_py/pytoflow/bin/activate
 export CODE_PATH=`pwd`
 data_dir=$CODE_PATH/Data
 source $CODE_PATH/config_daemon
@@ -44,8 +44,8 @@ variables=`echo -e "
 	\\$CODE_PATH=$CODE_PATH,
 	\\$fun_organism='Human',
 	\\$annotation_list='',
-	\\$multivar_data=$multivar_data
-
+	\\$multivar_data=$multivar_data,
+	\\$synth_data_dir=$data_dir"/synth"
 	" | tr -d [:space:]`
 
 if [ "$mode" == "exec" ] ; then
