@@ -199,3 +199,37 @@ dummy_Hunter){
 	?
 	degenes_Hunter.R -m "F" -e $data_dir/dummy_DEGs -o output
 }
+
+degsynth_vanilla){
+	source ~aestebanm/initializes/init_Hunter_dev
+	?
+	degsynth.R -m compcodeR --samples.per.cond 12 \
+	-n 14361 -d 0 --fraction.upregulated 0.5 -o synth \
+	--dataset="dataset" --output_dir ./ \
+	--seed 69 --between.group.diffdisp FALSE
+	counts_diff=`diff synth_counts.tsv $synth_data_dir"/vanilla_counts"`
+	exp_diff=`diff synth_exp_design.tsv $synth_data_dir"/vanilla_exp_design"`
+	DEGs_diff=`diff synth_DEGs.tsv $synth_data_dir"/vanilla_DEGs"`
+	if [ ! $counts_diff="" ] || [ ! $exp_diff="" ] || [ ! DEGs_diff="" ]; then
+		echo "DEG synthesis failed with code 1"
+		exit 1
+	fi
+	echo "Success!"
+}
+
+degsynth_[norm;exp;det]){
+	source ~aestebanm/initializes/init_Hunter_dev
+	?
+	degsynth.R -m compcodeR --samples.per.cond 6 \
+	-n 14361 --fraction.upregulated 0.5 -o synth \
+	--dataset="dataset" --output_dir ./ \
+	--seed 69 --method (*)
+	counts_diff=`diff synth_counts.tsv $synth_data_dir"/(*)_counts"`
+	exp_diff=`diff synth_exp_design.tsv $synth_data_dir"/(*)_exp_design"`
+	DEGs_diff=`diff synth_DEGs.tsv $synth_data_dir"/(*)_DEGs"`
+	if [ ! $counts_diff="" ] || [ ! $exp_diff="" ] || [ ! DEGs_diff="" ]; then
+		echo "DEG synthesis failed with code 1"
+		exit 1
+	fi
+	echo "Success!"
+}
