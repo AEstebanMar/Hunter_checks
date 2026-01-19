@@ -5,7 +5,7 @@ Hunter_D){
 	degenes_Hunter.R -i $input -o ./ -t $target -m D
 	retVal=$?
     if [ $retVal -ne 0 ]; then
-        echo ERROR: Last command exited with cosde $retVal
+        echo ERROR: DEGenes Hunter exited with cosde $retVal
         exit $retVal
     fi
 }
@@ -16,7 +16,7 @@ Hunter_DW){
 	degenes_Hunter.R -i $input -o ./ -t $target -m DW
 	retVal=$?
     if [ $retVal -ne 0 ]; then
-        echo ERROR: Last command exited with cosde $retVal
+        echo ERROR: DEGenes Hunter exited with cosde $retVal
         exit $retVal
     fi
 }
@@ -28,7 +28,7 @@ Hunter_mirna){
 	degenes_Hunter.R -i $input -o ./ -t $target -m D
 	retVal=$?
     if [ $retVal -ne 0 ]; then
-        echo ERROR: Last command exited with code $retVal
+        echo ERROR: DEGenes Hunter exited with code $retVal
         exit $retVal
     fi
 }
@@ -42,7 +42,7 @@ Hunter_D_library_sizes){
 	degenes_Hunter.R -i $input -o ./ -t $target -m D --library_sizes $library_sizes
 	retVal=$?
     if [ $retVal -ne 0 ]; then
-        echo ERROR: Last command exited with code $retVal
+        echo ERROR: DEGenes Hunter exited with code $retVal
         exit $retVal
     fi
 }
@@ -53,7 +53,7 @@ Hunter_E){
 	degenes_Hunter.R -i $input -o ./ -t $target -m E
 	retVal=$?
     if [ $retVal -ne 0 ]; then
-        echo ERROR: Last command exited with code $retVal
+        echo ERROR: DEGenes Hunter exited with code $retVal
         exit $retVal
     fi
 }
@@ -64,7 +64,7 @@ Hunter_L){
 	degenes_Hunter.R -i $input -o ./ -t $target -m L
 	retVal=$?
     if [ $retVal -ne 0 ]; then
-        echo ERROR: Last command exited with code $retVal
+        echo ERROR: DEGenes Hunter exited with code $retVal
         exit $retVal
     fi
 }
@@ -75,7 +75,7 @@ Hunter_N){
 	degenes_Hunter.R -i $input -o ./ -t $target -m N
 	retVal=$?
     if [ $retVal -ne 0 ]; then
-        echo ERROR: Last command exited with code $retVal
+        echo ERROR: DEGenes Hunter exited with code $retVal
         exit $retVal
     fi
 }
@@ -86,7 +86,7 @@ Hunter_DELNW){
 	degenes_Hunter.R -i $input -o ./ -t $target -m DELNW --WGCNA_norm_method "DESeq2"
 	retVal=$?
     if [ $retVal -ne 0 ]; then
-        echo ERROR: Last command exited with code $retVal
+        echo ERROR: DEGenes Hunter exited with code $retVal
         exit $retVal
     fi
 }
@@ -97,7 +97,7 @@ Hunter_DW){
 	degenes_Hunter.R -i $input -o ./ -t $target -m DW --WGCNA_norm_method "DESeq2" --WGCNA_all
 	retVal=$?
     if [ $retVal -ne 0 ]; then
-        echo ERROR: Last command exited with code $retVal
+        echo ERROR: DEGenes Hunter exited with code $retVal
         exit $retVal
     fi
 }
@@ -113,12 +113,10 @@ coRmiT){
 			 -R miRNA_target.html -M $Multimir_path \
 			 -c "'"$CORR_THRS"'" -u 2 -T -o results $ADD_OPT_CORR
 	add_annotation.R -i $mirnaseq_input_path/Common_results/hunter_results_table.txt \
-					 -o results.txt \
-					 -m \
-					 --column rownames
+					 -o results.txt -m --column rownames
 	retVal=$?
     if [ $retVal -ne 0 ]; then
-    	echo ERROR: Last command exited with code $retVal
+    	echo ERROR: coRmiT exited with code $retVal
         exit $retVal
     fi
 }
@@ -134,7 +132,7 @@ func_ora_D){
 						-o ./functional_enrichment --size_item 0.1 --size_category 1.5 --size_edge 0.1 --hilight "chromosome segregation" --hilight_alpha 0.7 --node_label "category"
 	retVal=$?
    	if [ $retVal -ne 0 ]; then
-   	   echo ERROR: Last command exited with code $retVal
+   	   echo ERROR: Functional enrichment exited with code $retVal
    	   exit $retVal
    	fi
 }
@@ -150,7 +148,7 @@ func_ora_DW){
 						-o ./functional_enrichment --size_item 0.1 --size_category 1.5 --size_edge 0.1 --hilight "chromosome segregation" --hilight_alpha 0.7 --node_label "category"
 	retVal=$?
    	if [ $retVal -ne 0 ]; then
-   	   echo ERROR: Last command exited with code $retVal
+   	   echo ERROR: Functional enrichment exited with code $retVal
    	   exit $retVal
    	fi
 }
@@ -166,7 +164,7 @@ func_ora_DELNW){
 						-o ./functional_enrichment --size_item 0.1 --size_category 1.5 --size_edge 0.1 --hilight "chromosome segregation" --hilight_alpha 0.7 --node_label "category"
 	retVal=$?
    	if [ $retVal -ne 0 ]; then
-   	   echo ERROR: Last command exited with code $retVal
+   	   echo ERROR: Functional enrichment exited with code $retVal
    	   exit $retVal
    	fi
 }
@@ -178,7 +176,7 @@ clust2enrich){
 	# clusters_to_enrichment.R -i $data_dir'/clusters_aggregated.txt' -w 3 -o functional_results -f MF -k ENSEMBL -O "Human" --cex_label_category 1.5 --cex_line 0.6 --node_label "category" --cex_pie2axis 1.4
 	retVal=$?
     if [ $retVal -ne 0 ]; then
-       echo ERROR: Last command exited with code $retVal
+       echo ERROR: Clusters to enrichment exited with code $retVal
        exit $retVal
     fi
 }
@@ -189,7 +187,7 @@ multivar_mine){
     multivar_mine.R -i "$multivar_data/metabolomics.txt,$multivar_data/phenotypes.txt,$multivar_data/severity_scales.txt" -A "metabolomics.txt:s,phenotypes.txt:n" -S "severity_scales.txt:c" -c -n 2
     retVal=$?
     if [ $retVal -ne 0 ]; then
-       echo ERROR: Last command exited with code $retVal
+       echo ERROR: Multivar mine exited with code $retVal
        exit $retVal
     fi
 }
@@ -198,6 +196,11 @@ dummy_Hunter){
 	source ~aestebanm/initializes/init_Hunter_dev
 	?
 	degenes_Hunter.R -m "F" -e $data_dir/dummy_DEGs -o output
+	retVal=$?
+    if [ $retVal -ne 0 ]; then
+       echo ERROR: Dummy Hunter exited with code $retVal
+       exit $retVal
+    fi
 }
 
 degsynth_vanilla){
@@ -210,7 +213,12 @@ degsynth_vanilla){
 	counts_diff=`diff synth_counts.tsv $synth_data_dir"/vanilla_counts"`
 	exp_diff=`diff synth_exp_design.tsv $synth_data_dir"/vanilla_exp_design"`
 	DEGs_diff=`diff synth_DEGs.tsv $synth_data_dir"/vanilla_DEGs"`
-	if [ ! $counts_diff="" ] || [ ! $exp_diff="" ] || [ ! DEGs_diff="" ]; then
+	retVal=$?
+    if [ $retVal -ne 0 ]; then
+       echo ERROR: DEG synthesis failed with code $retVal
+       exit $retVal
+    fi
+	if [ ! $counts_diff="" ] || [ ! $exp_diff="" ] || [ ! $DEGs_diff="" ]; then
 		echo "DEG synthesis failed with code 1"
 		exit 1
 	fi
@@ -220,16 +228,22 @@ degsynth_vanilla){
 degsynth_[norm;exp;det]){
 	source ~aestebanm/initializes/init_Hunter_dev
 	?
-	degsynth.R -m compcodeR --samples.per.cond 6 \
-	-n 14361 --fraction.upregulated 0.5 -o synth \
-	--dataset="dataset" --output_dir ./ \
-	--seed 69 --method (*)
+	degsynth.R -m compcodeR --samples.per.cond 6 --effect_sizes 1,2 \
+	-n 14760 --fraction.upregulated 0.5 -o synth \
+	--dataset="dataset" --output_dir ./ --ndegs "338,338" \
+	--seed 69 --overlap_size 0.6 --condition_columns "2,3" --method (*)
+	retVal=$?
+	if [ $retVal -ne 0 ]; then
+       echo ERROR: DEG synthesis failed with code $retVal
+       exit $retVal
+    fi
 	counts_diff=`diff synth_counts.tsv $synth_data_dir"/(*)_counts"`
-	exp_diff=`diff synth_exp_design.tsv $synth_data_dir"/(*)_exp_design"`
+	exp_diff=`diff synth_exp_design.tsv $synth_data_dir"/exp_design"`
 	DEGs_diff=`diff synth_DEGs.tsv $synth_data_dir"/(*)_DEGs"`
-	if [ ! $counts_diff="" ] || [ ! $exp_diff="" ] || [ ! DEGs_diff="" ]; then
-		echo "DEG synthesis failed with code 1"
+	if [ ! $counts_diff="" ] || [ ! $exp_diff="" ] || [ ! $DEGs_diff="" ]; then
+		echo "Output is not equal to snapshots"
 		exit 1
+	else
+		echo "Success!"
 	fi
-	echo "Success!"
 }
