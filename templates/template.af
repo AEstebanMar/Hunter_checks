@@ -206,20 +206,20 @@ dummy_Hunter){
 degsynth_vanilla){
 	source ~aestebanm/initializes/init_Hunter_dev
 	?
-	degsynth.R -m compcodeR --samples.per.cond 12 \
-	-n 14361 -d 0 --fraction.upregulated 0.5 -o synth \
-	--dataset="dataset" --output_dir ./ \
+	degsynth.R -m compcodeR --samples.per.cond 6 -n 14760 -d 0 \
+	--fraction.upregulated 0.5 -o synth --dataset="dataset" --output_dir ./ \
 	--seed 69 --between.group.diffdisp FALSE
-	counts_diff=`diff synth_counts.tsv $synth_data_dir"/vanilla_counts"`
-	exp_diff=`diff synth_exp_design.tsv $synth_data_dir"/vanilla_exp_design"`
-	DEGs_diff=`diff synth_DEGs.tsv $synth_data_dir"/vanilla_DEGs"`
 	retVal=$?
     if [ $retVal -ne 0 ]; then
        echo ERROR: DEG synthesis failed with code $retVal
        exit $retVal
     fi
-	if [ ! $counts_diff="" ] || [ ! $exp_diff="" ] || [ ! $DEGs_diff="" ]; then
-		echo "DEG synthesis failed with code 1"
+    counts_diff=`diff synth_counts.tsv $synth_data_dir"/vanilla_counts"`
+	DEGs_diff=`diff synth_DEGs.tsv $synth_data_dir"/vanilla_DEGs"`
+	if [ "$counts_diff" != "" ] || [ "$DEGs_diff" != "" ]; then
+		echo "Output is not equal to snapshots"
+		echo $counts_diff > counts_diff
+		echo $DEGs_diff > DEGs_diff
 		exit 1
 	fi
 	echo "Success!"
@@ -228,10 +228,12 @@ degsynth_vanilla){
 degsynth_[norm;exp;det]){
 	source ~aestebanm/initializes/init_Hunter_dev
 	?
-	degsynth.R -m compcodeR --samples.per.cond 6 --effect_sizes 1,2 \
+	degsynth.R --inputfile $synth_data_dir"/input_counts" -m compcodeR \
+	--samples.per.cond 6 --effect_sizes 1,2 \
 	-n 14760 --fraction.upregulated 0.5 -o synth \
 	--dataset="dataset" --output_dir ./ --ndegs "338,338" \
-	--seed 69 --overlap_size 0.6 --condition_columns "2,3" --method (*)
+	--seed 69 --overlap_size 0.6 --condition_columns "2,3" --exp_design $synth_data_dir"/exp_design" \
+	--method (*)
 	retVal=$?
 	if [ $retVal -ne 0 ]; then
        echo ERROR: DEG synthesis failed with code $retVal
@@ -240,8 +242,11 @@ degsynth_[norm;exp;det]){
 	counts_diff=`diff synth_counts.tsv $synth_data_dir"/(*)_counts"`
 	exp_diff=`diff synth_exp_design.tsv $synth_data_dir"/exp_design"`
 	DEGs_diff=`diff synth_DEGs.tsv $synth_data_dir"/(*)_DEGs"`
-	if [ ! $counts_diff="" ] || [ ! $exp_diff="" ] || [ ! $DEGs_diff="" ]; then
+	if [ "$counts_diff" != "" ] || [ "$exp_diff" != "" ] || [ "$DEGs_diff" != "" ]; then
 		echo "Output is not equal to snapshots"
+		echo $counts_diff > counts_diff
+		echo $exp_diff > exp_diff
+		echo $DEGs_diff > DEGs_diff
 		exit 1
 	else
 		echo "Success!"
