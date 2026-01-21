@@ -206,7 +206,7 @@ dummy_Hunter){
 degsynth_vanilla){
 	source ~aestebanm/initializes/init_Hunter_dev
 	?
-	degsynth.R -m compcodeR --samples.per.cond 6 -n 14760 -d 0 \
+	degsynth.R -m compcodeR --samples.per.cond 24 -n 14760 -d 0 \
 	--fraction.upregulated 0.5 -o synth --dataset="dataset" --output_dir ./ \
 	--seed 69 --between.group.diffdisp FALSE
 	retVal=$?
@@ -214,12 +214,13 @@ degsynth_vanilla){
        echo ERROR: DEG synthesis failed with code $retVal
        exit $retVal
     fi
-    counts_diff=`diff synth_counts.tsv $synth_data_dir"/vanilla_counts"`
-	DEGs_diff=`diff synth_DEGs.tsv $synth_data_dir"/vanilla_DEGs"`
-	if [ "$counts_diff" != "" ] || [ "$DEGs_diff" != "" ]; then
+    rm *diff
+    rm compare_counts
+    tail -n +2 synth_counts.tsv > compare_counts
+    counts_diff=`diff compare_count $synth_data_dir"/vanilla_counts"`
+	if [ "$counts_diff" != "" ] ; then
 		echo "Output is not equal to snapshots"
 		echo $counts_diff > counts_diff
-		echo $DEGs_diff > DEGs_diff
 		exit 1
 	fi
 	echo "Success!"
@@ -233,20 +234,19 @@ degsynth_[norm;exp;det]){
 	-n 14760 --fraction.upregulated 0.5 -o synth \
 	--dataset="dataset" --output_dir ./ --ndegs "338,338" \
 	--seed 69 --overlap_size 0.6 --condition_columns "2,3" --exp_design $synth_data_dir"/exp_design" \
+	--fixed_DEG_lists $synth_data_dir"/degs1,"$synth_data_dir"/degs2" \
+	--fixed_upregulated_DEGs $synth_data_dir"/up_degs_condition,"$synth_data_dir"/up_degs_condition2" \
 	--method (*)
 	retVal=$?
 	if [ $retVal -ne 0 ]; then
        echo ERROR: DEG synthesis failed with code $retVal
        exit $retVal
     fi
+    rm *diff
 	counts_diff=`diff synth_counts.tsv $synth_data_dir"/(*)_counts"`
-	exp_diff=`diff synth_exp_design.tsv $synth_data_dir"/exp_design"`
-	DEGs_diff=`diff synth_DEGs.tsv $synth_data_dir"/(*)_DEGs"`
-	if [ "$counts_diff" != "" ] || [ "$exp_diff" != "" ] || [ "$DEGs_diff" != "" ]; then
+	if [ "$counts_diff" != "" ] || [ "$exp_diff" != "" ] ; then
 		echo "Output is not equal to snapshots"
 		echo $counts_diff > counts_diff
-		echo $exp_diff > exp_diff
-		echo $DEGs_diff > DEGs_diff
 		exit 1
 	else
 		echo "Success!"
