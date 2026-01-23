@@ -1,6 +1,6 @@
 
 Hunter_D){
-	source ~aestebanm/initializes/init_Hunter_dev
+	source ~/initializes/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m D
 	retVal=$?
@@ -11,7 +11,7 @@ Hunter_D){
 }
 
 Hunter_DW){
-	source ~aestebanm/initializes/init_Hunter_dev
+	source ~/initializes/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m DW
 	retVal=$?
@@ -23,7 +23,7 @@ Hunter_DW){
 
 Hunter_mirna){
 	# WIP missing mirnas
-	source ~aestebanm/initializes/init_Hunter_dev
+	source ~/initializes/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m D
 	retVal=$?
@@ -35,7 +35,7 @@ Hunter_mirna){
 
 Hunter_D_library_sizes){
 	module load latex/3.14
-	source ~aestebanm/initializes/init_Hunter_dev
+	source ~/initializes/init_Hunter_dev
 	export DEGHUNTER_MODE=DEVELOPMENT
 	export OMP_NUM_THREADS=1
 	?
@@ -48,7 +48,7 @@ Hunter_D_library_sizes){
 }
 
 Hunter_E){
-	source ~aestebanm/initializes/init_Hunter_dev
+	source ~/initializes/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m E
 	retVal=$?
@@ -59,7 +59,7 @@ Hunter_E){
 }
 
 Hunter_L){
-	source ~aestebanm/initializes/init_Hunter_dev
+	source ~/initializes/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m L
 	retVal=$?
@@ -70,7 +70,7 @@ Hunter_L){
 }
 
 Hunter_N){
-	source ~aestebanm/initializes/init_Hunter_dev
+	source ~/initializes/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m N
 	retVal=$?
@@ -81,7 +81,7 @@ Hunter_N){
 }
 
 Hunter_DELNW){
-	source ~aestebanm/initializes/init_Hunter_dev
+	source ~/initializes/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m DELNW --WGCNA_norm_method "DESeq2"
 	retVal=$?
@@ -92,7 +92,7 @@ Hunter_DELNW){
 }
 
 Hunter_DW){
-	source ~aestebanm/initializes/init_Hunter_dev
+	source ~/initializes/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m DW --WGCNA_norm_method "DESeq2" --WGCNA_all
 	retVal=$?
@@ -103,7 +103,7 @@ Hunter_DW){
 }
 
 coRmiT){
-	source ~aestebanm/initializes/init_Hunter_dev
+	source ~/initializes/init_Hunter_dev
 	rm temp.RData
 	# ln -s $data_dir/temp.RData ./
 	ADD_OPT_CORR=`echo "$add_opt_corr" | tr ':' ' ' | tr ";" ","`
@@ -122,7 +122,7 @@ coRmiT){
 }
 
 func_ora_D){
-	source ~aestebanm/initializes/init_Hunter_dev
+	source ~/initializes/init_Hunter_dev
 	source $root_dir/config_daemon
 	export PATH=$aux_parsers_path:$PATH
 	custom_nomenclature="$data_dir/c3.tft.v2023.2.Hs.entrez.gmt,$data_dir/c4.all.v2023.2.Hs.entrez.gmt,$data_dir/c6.all.v2023.2.Hs.entrez.gmt,$data_dir/h.all.v2023.2.Hs.entrez.gmt"
@@ -138,7 +138,7 @@ func_ora_D){
 }
 
 func_ora_DW){
-	source ~aestebanm/initializes/init_Hunter_dev
+	source ~/initializes/init_Hunter_dev
 	source $root_dir/config_daemon
 	export PATH=$aux_parsers_path:$PATH
 	custom_nomenclature="$data_dir/c3.tft.v2023.2.Hs.entrez.gmt,$data_dir/c4.all.v2023.2.Hs.entrez.gmt,$data_dir/c6.all.v2023.2.Hs.entrez.gmt,$data_dir/h.all.v2023.2.Hs.entrez.gmt"
@@ -154,7 +154,7 @@ func_ora_DW){
 }
 
 func_ora_DELNW){
-	source ~aestebanm/initializes/init_Hunter_dev
+	source ~/initializes/init_Hunter_dev
 	source $root_dir/config_daemon
 	export PATH=$aux_parsers_path:$PATH
 	custom_nomenclature="$data_dir/c3.tft.v2023.2.Hs.entrez.gmt,$data_dir/c4.all.v2023.2.Hs.entrez.gmt,$data_dir/c6.all.v2023.2.Hs.entrez.gmt,$data_dir/h.all.v2023.2.Hs.entrez.gmt"
@@ -170,7 +170,7 @@ func_ora_DELNW){
 }
 
 clust2enrich){
-	source ~aestebanm/initializes/init_Hunter_dev
+	source ~/initializes/init_Hunter_dev
 	?
 	clusters_to_enrichment.R -i $data_dir'/clusters_aggregated.txt' -w 3 -o functional_results -f MF -k ENSEMBL -O "Human" --size_item 0.1 --size_category 0.5 --size_edge 0.1 --hilight "ATPase binding" --hilight_alpha 0.7 --node_label "category"
 	# clusters_to_enrichment.R -i $data_dir'/clusters_aggregated.txt' -w 3 -o functional_results -f MF -k ENSEMBL -O "Human" --cex_label_category 1.5 --cex_line 0.6 --node_label "category" --cex_pie2axis 1.4
@@ -182,7 +182,7 @@ clust2enrich){
 }
 
 multivar_mine){
-    source ~aestebanm/initializes/init_Hunter_dev
+    source ~/initializes/init_Hunter_dev
     ?
     multivar_mine.R -i "$multivar_data/metabolomics.txt,$multivar_data/phenotypes.txt,$multivar_data/severity_scales.txt" -A "metabolomics.txt:s,phenotypes.txt:n" -S "severity_scales.txt:c" -c -n 2
     retVal=$?
@@ -193,7 +193,7 @@ multivar_mine){
 }
 
 dummy_Hunter){
-	source ~aestebanm/initializes/init_Hunter_dev
+	source ~/initializes/init_Hunter_dev
 	?
 	degenes_Hunter.R -m "F" -e $data_dir/dummy_DEGs -o output
 	retVal=$?
@@ -204,7 +204,7 @@ dummy_Hunter){
 }
 
 degsynth_vanilla){
-	source ~aestebanm/initializes/init_Hunter_dev
+	source ~/initializes/init_Hunter_dev
 	?
 	degsynth.R -m compcodeR --samples.per.cond 24 -n 14760 -d 0 \
 	--fraction.upregulated 0.5 -o synth --dataset="dataset" --output_dir ./ \
@@ -227,7 +227,7 @@ degsynth_vanilla){
 }
 
 degsynth_[norm;exp;det]){
-	source ~aestebanm/initializes/init_Hunter_dev
+	source ~/initializes/init_Hunter_dev
 	?
 	degsynth.R --inputfile $synth_data_dir"/input_counts" -m compcodeR \
 	--samples.per.cond 6 --effect_sizes 1,2 \
