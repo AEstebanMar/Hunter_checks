@@ -13,6 +13,15 @@ mirnaseq_input_path=/mnt/home/users/bio_267_uma/jperkins/test/ehs_cormit_sarcoma
 Multimir_path=/mnt/home/users/bio_267_uma/jperkins/test/ehs_cormit_sarcoma/reduced_multimir.RData
 #Multimir_path=/mnt/home/soft/soft_bio_267/programs/x86_64/ExpHunterSuite/inst/multimir_data/parsed_raw_score_mmu.RData
 add_opt_corr='--tag_filter:prevalent;prevalent:-u:2:--output_pairs:validated'
+export whitelist=""	#-------#	AutoFlow whitelist. Works as a regexp. Takes precedence over blacklist.
+export blacklist="" #-------#	AutoFlow blacklist. Works as a regexp.
+list_options=""
+
+if [ ! "$whitelist" == "" ]; then
+	list_options="--white_list "$whitelist""
+elif [ ! "$blacklist" == "" ]; then
+	list_options="--black_list "$blacklist""
+fi
 
 strats=\"EE:Eh:Ed:hd:hE:hh\"
 multivar_data=$data_dir/multivar_data
@@ -49,14 +58,14 @@ variables=`echo -e "
 	" | tr -d [:space:]`
 
 if [ "$mode" == "exec" ] ; then
-	AutoFlow -w $template -V $variables $aux_opt -o exec_DEG_wf -b
+	AutoFlow -w $template -V $variables $aux_opt -o exec_DEG_wf -b -e $list_options
 
 elif [ "$mode" == "check" ]; then
 	flow_logger -w -e exec_DEG_wf -r all
 
 elif [ "$mode" == "rescue" ]; then
 	echo Regenerating code
-	AutoFlow -w $template -V $variables $aux_opt -o exec_DEG_wf -v
+	AutoFlow -w $template -V $variables $aux_opt -o exec_DEG_wf -v -e $list_options
 	echo Launching pending and failed jobs
 	flow_logger -w -e exec_DEG_wf -l -p -b
 fi
