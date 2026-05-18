@@ -1,6 +1,6 @@
 
 Hunter_D){
-	source ~/initializes/init_Hunter_dev
+	source ~/software/inits/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m D
 	retVal=$?
@@ -11,7 +11,7 @@ Hunter_D){
 }
 
 Hunter_DW){
-	source ~/initializes/init_Hunter_dev
+	source ~/software/inits/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m DW
 	retVal=$?
@@ -23,7 +23,7 @@ Hunter_DW){
 
 Hunter_mirna){
 	# WIP missing mirnas
-	source ~/initializes/init_Hunter_dev
+	source ~/software/inits/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m D
 	retVal=$?
@@ -35,7 +35,7 @@ Hunter_mirna){
 
 Hunter_D_library_sizes){
 	module load latex/3.14
-	source ~/initializes/init_Hunter_dev
+	source ~/software/inits/init_Hunter_dev
 	export DEGHUNTER_MODE=DEVELOPMENT
 	export OMP_NUM_THREADS=1
 	?
@@ -48,7 +48,7 @@ Hunter_D_library_sizes){
 }
 
 Hunter_E){
-	source ~/initializes/init_Hunter_dev
+	source ~/software/inits/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m E
 	retVal=$?
@@ -59,7 +59,7 @@ Hunter_E){
 }
 
 Hunter_L){
-	source ~/initializes/init_Hunter_dev
+	source ~/software/inits/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m L
 	retVal=$?
@@ -70,7 +70,7 @@ Hunter_L){
 }
 
 Hunter_N){
-	source ~/initializes/init_Hunter_dev
+	source ~/software/inits/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m N
 	retVal=$?
@@ -81,7 +81,7 @@ Hunter_N){
 }
 
 Hunter_DELNW){
-	source ~/initializes/init_Hunter_dev
+	source ~/software/inits/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m DELNW --WGCNA_norm_method "DESeq2"
 	retVal=$?
@@ -92,7 +92,7 @@ Hunter_DELNW){
 }
 
 Hunter_DW){
-	source ~/initializes/init_Hunter_dev
+	source ~/software/inits/init_Hunter_dev
 	?
 	degenes_Hunter.R -i $input -o ./ -t $target -m DW --WGCNA_norm_method "DESeq2" --WGCNA_all
 	retVal=$?
@@ -103,7 +103,7 @@ Hunter_DW){
 }
 
 coRmiT){
-	source ~/initializes/init_Hunter_dev
+	source ~/software/inits/init_Hunter_dev
 	rm temp.RData
 	# ln -s $data_dir/temp.RData ./
 	ADD_OPT_CORR=`echo "$add_opt_corr" | tr ':' ' ' | tr ";" ","`
@@ -122,7 +122,7 @@ coRmiT){
 }
 
 func_ora_D){
-	source ~/initializes/init_Hunter_dev
+	source ~/software/inits/init_Hunter_dev
 	source $root_dir/config_daemon
 	export PATH=$aux_parsers_path:$PATH
 	custom_nomenclature="$data_dir/c3.tft.v2023.2.Hs.entrez.gmt,$data_dir/c4.all.v2023.2.Hs.entrez.gmt,$data_dir/c6.all.v2023.2.Hs.entrez.gmt,$data_dir/h.all.v2023.2.Hs.entrez.gmt"
@@ -138,7 +138,7 @@ func_ora_D){
 }
 
 func_ora_DW){
-	source ~/initializes/init_Hunter_dev
+	source ~/software/inits/init_Hunter_dev
 	source $root_dir/config_daemon
 	export PATH=$aux_parsers_path:$PATH
 	custom_nomenclature="$data_dir/c3.tft.v2023.2.Hs.entrez.gmt,$data_dir/c4.all.v2023.2.Hs.entrez.gmt,$data_dir/c6.all.v2023.2.Hs.entrez.gmt,$data_dir/h.all.v2023.2.Hs.entrez.gmt"
@@ -154,7 +154,7 @@ func_ora_DW){
 }
 
 func_ora_DELNW){
-	source ~/initializes/init_Hunter_dev
+	source ~/software/inits/init_Hunter_dev
 	source $root_dir/config_daemon
 	export PATH=$aux_parsers_path:$PATH
 	custom_nomenclature="$data_dir/c3.tft.v2023.2.Hs.entrez.gmt,$data_dir/c4.all.v2023.2.Hs.entrez.gmt,$data_dir/c6.all.v2023.2.Hs.entrez.gmt,$data_dir/h.all.v2023.2.Hs.entrez.gmt"
@@ -170,7 +170,7 @@ func_ora_DELNW){
 }
 
 clust2enrich){
-	source ~/initializes/init_Hunter_dev
+	source ~/software/inits/init_Hunter_dev
 	?
 	clusters_to_enrichment.R -i $data_dir'/clusters_aggregated.txt' -w 3 -o functional_results -f MF -k ENSEMBL -O "Human" --size_item 0.1 --size_category 0.5 --size_edge 0.1 --hilight "ATPase binding" --hilight_alpha 0.7 --node_label "category"
 	# clusters_to_enrichment.R -i $data_dir'/clusters_aggregated.txt' -w 3 -o functional_results -f MF -k ENSEMBL -O "Human" --cex_label_category 1.5 --cex_line 0.6 --node_label "category" --cex_pie2axis 1.4
@@ -182,7 +182,7 @@ clust2enrich){
 }
 
 multivar_mine){
-    source ~/initializes/init_Hunter_dev
+    source ~/software/inits/init_Hunter_dev
     ?
     multivar_mine.R -i "$multivar_data/metabolomics.txt,$multivar_data/phenotypes.txt,$multivar_data/severity_scales.txt" -A "metabolomics.txt:s,phenotypes.txt:n" -S "severity_scales.txt:c" -c -n 2
     retVal=$?
@@ -192,8 +192,19 @@ multivar_mine){
     fi
 }
 
+multivar_mine_no_integration){
+    source ~/software/inits/init_Hunter_dev
+    ?
+    multivar_mine.R -i "$multivar_data/metabolomics.txt,$multivar_data/phenotypes.txt,$multivar_data/severity_scales.txt" -A "metabolomics.txt:s,phenotypes.txt:n" -S "severity_scales.txt:c" -c -n 2 --do_not_integrate
+    retVal=$?
+    if [ $retVal -ne 0 ]; then
+       echo ERROR: Multivar mine exited with code $retVal
+       exit $retVal
+    fi
+}
+
 dummy_Hunter){
-	source ~/initializes/init_Hunter_dev
+	source ~/software/inits/init_Hunter_dev
 	?
 	degenes_Hunter.R -m "F" -e $data_dir/dummy_DEGs -o output
 	retVal=$?
@@ -204,7 +215,7 @@ dummy_Hunter){
 }
 
 degsynth_vanilla){
-	source ~/initializes/init_Hunter_dev
+	source ~/software/inits/init_Hunter_dev
 	?
 	degsynth.R -m compcodeR --samples.per.cond 24 -n 14760 -d 0 \
 	--fraction.upregulated 0.5 -o synth --dataset="dataset" --output_dir ./ \
@@ -227,7 +238,7 @@ degsynth_vanilla){
 }
 
 degsynth_[norm;exp;det]){
-	source ~/initializes/init_Hunter_dev
+	source ~/software/inits/init_Hunter_dev
 	?
 	degsynth.R --inputfile $synth_data_dir"/input_counts" -m compcodeR \
 	--samples.per.cond 6 --effect_sizes 1,2 \
@@ -251,4 +262,127 @@ degsynth_[norm;exp;det]){
 	else
 		echo "Success!"
 	fi
+}
+
+generate_DGHunter_command_DEG_env){
+	source ~/software/inits/init_Hunter_dev
+	export de_pvalue=1
+	export de_packages="DELNW"
+	export de_min_pack=3
+	export de_logfc=0.05
+	export WGCNA_mergecutHeight=50
+	export WGCNA_min_genes_cluster=5
+	export WGCNA_detectcutHeight=40
+	export WGCNA_deepsplit=20
+	export min_reads=10
+	export filter_type="strict"
+	export min_libraries=6
+	export string_features="env_feature"
+	export numeric_features="env_num_feature"
+	export target_path=$data_dir"/ctrl_vs_pat_all_nopat66_target.txt"
+	export query_genes="one,two,three_genes"
+	export seed=69
+	export count_var_quantile=0
+	export deseq2_var_quantile=0
+	?
+	generate_DGHunter_command.R -m "degenes_Hunter" > command
+	echo -e "\n" >> command
+	test=`diff command $data_dir"/deg_env_command"`
+	if [ "$test" != "" ]; then
+		echo "Command generated is not what it should be"
+		exit 1
+	fi
+}
+
+generate_DGHunter_command_DEG_add){
+	source ~/software/inits/init_Hunter_dev
+	export de_pvalue=1
+	export de_packages="DELNW"
+	export de_min_pack=3
+	export de_logfc=0.05
+	export WGCNA_mergecutHeight=50
+	export WGCNA_min_genes_cluster=5
+	export WGCNA_detectcutHeight=40
+	export WGCNA_deepsplit=20
+	export min_reads=10
+	export filter_type="strict"
+	export min_libraries=6
+	export string_features="env_feature"
+	export numeric_features="env_num_feature"
+	export target_path=$data_dir"/ctrl_vs_pat_all_nopat66_target.txt"
+	export query_genes="one,two,three_genes"
+	export seed=69
+	export count_var_quantile=0
+	export deseq2_var_quantile=0
+	export ADD_OPTIONS='--Control_columns "ctrl1,ctrl2,ctrl3" --Treatment_columns "treat1,treat2,treat3" --reads 20 --minlibraries 16 --filter_type "lax" --p_val_cutoff 0 --lfc 0.5 --modules E --minpack_common 6 --target_file ./ctrl_vs_pat_all_nopat66_target.txt --external_DEA_file path/to/DEA/file --model_variables "yes" --string_factors "added_string_Fact" --numeric_factors "added_num_fact" --WGCNA_memory 14 --WGCNA_norm_method "added_wcgna_norm_method" --WGCNA_deepsplit 152 --WGCNA_min_genes_cluster 1 --WGCNA_detectcutHeight 1 --WGCNA_mergecutHeight 1 --WGCNA_all TRUE --WGCNA_blockwiseNetworkType "yes" --WGCNA_blockwiseTOMType "yes" --WGCNA_minCoreKME -4 --WGCNA_minCoreKMESize 1 --WGCNA_minKMEtoStay 1 --WGCNA_corType "easy" --multifactorial "whynot" --query_genes "every,gene,ever" --seed 420 --count_var_quantile 200 --deseq2_var_quantile 200'
+	?
+	generate_DGHunter_command.R -m "degenes_Hunter" > command
+	echo -e "\n" >> command
+	test=`diff command $data_dir"/deg_add_command"`
+	if [ "$test" != "" ]; then
+		echo "Command generated is not what it should be"
+		exit 1
+	fi
+}
+
+generate_DGHunter_command_func_env){
+	source ~/software/inits/init_Hunter_dev
+	export fun_remote_mode=NEVER
+	export custom_nomenclature=this_is_it
+	export fun_an_type=beautiful
+	export GO_modules=BP,MF,CC
+	export fun_an_performance=bad
+	export fun_pvalue=0.05
+	export fun_organism=hsa
+	export annotation_list=lol
+	export clean_parentals=TRUE
+	export universe=big
+	?
+	generate_DGHunter_command.R -m "functional_Hunter" > command
+	echo -e "\n" >> command
+	test=`diff command $data_dir"/func_env_command"`
+	if [ "$test" != "" ]; then
+		echo "Command generated is not what it should be"
+		exit 1
+	fi
+}
+
+generate_DGHunter_command_func_add){
+	source ~/software/inits/init_Hunter_dev
+	export fun_remote_mode=NEVER
+	export custom_nomenclature=this_is_it
+	export fun_an_type=beautiful
+	export GO_modules=BP,MF,CC
+	export fun_an_performance=bad
+	export fun_pvalue=0.05
+	export fun_organism=hsa
+	export annotation_list=lol
+	export clean_parentals=TRUE
+	export universe=big
+	export ADD_OPTIONS='--model_organism mmus --annot_file this_is_not_it --input_gene_id ENSEMBL --func_annot_db cibeles --GO_subont FP --custom what --analysis good --remote ALWAYS --clean_parentals FALSE --pthreshold 1 --qthreshold 1 --max_genes_plot 0 --cores 69 --task_size 420 --universe on_fire'
+	?
+	generate_DGHunter_command.R -m "functional_Hunter" > command
+	echo -e "\n" >> command
+	test=`diff command $data_dir"/func_add_command"`
+	if [ "$test" != "" ]; then
+		echo "Command generated is not what it should be"
+		exit 1
+	fi
+}
+
+generate_targets){
+	source ~aestebanm/software/inits/init_Hunter_dev
+	?
+	generate_targets.R -o ./ -e experiment_design -t 'ctrl_vs_pat_all_nopat66>condition:control,patient' \
+					   -b $data_dir"/blacklist_pat66" --aux_options ""
+}
+
+generate_targets_add_ft){
+	source ~aestebanm/software/inits/init_Hunter_dev
+	string_features="phenotype,genotype"
+	numeric_features="age,height"
+	?
+	generate_targets.R -o ./ -e experiment_design -t 'ctrl_vs_pat_all_nopat66>condition:control,patient' \
+					   -b $data_dir"/blacklist_pat66" --additional_features "$string_features,$numeric_features" \
+					   --aux_options \"'-S $string_features -N $numeric_features'\"
 }
