@@ -1,13 +1,15 @@
 
-library_sizes_[yes;no]){
+Hunter_[D;DW;E;L;N;DELNW]){
 	?
-	Hunter_[D;DW;E;L;N;DELNW]){ ## Missing iterator "mirna", it's broken as of now
-		if [ (*) == *W* ]; then
+	library_sizes_[yes;no]){ ## Missing iterator "mirna", it's broken as of now
+		if [ Hunter_(+) == *W* ]; then
 			WGCNA_flags="--WGCNA_norm_method DESeq2 --WGCNA_all"
 		fi
-		if [ library_sizes_(+) == "yes" ]; then
+		if [ (*) == "yes" ]; then
 			library_flag="--library_sizes $library_sizes"
-		degenes_Hunter.R -i $input -o ./ -t $target -m (*) $WGCNA_flags $library_flag
+		fi
+		?
+		degenes_Hunter.R -i $input -o ./ -t $target -m Hunter_(+) $WGCNA_flags $library_flag
 		if [ $retVal -ne 0 ]; then
 	        echo ERROR: DEGenes Hunter exited with code $retVal
 	        exit $retVal
@@ -15,7 +17,7 @@ library_sizes_[yes;no]){
 	}
 }
 
-func_ora_[JobRegExp:library_sizes_no:-]){
+func_ora_[JobRegExp:library_sizes_:-]){
 	source ~/software/inits/init_Hunter_dev
 	source $root_dir/config_daemon
 	export PATH=$aux_parsers_path:$PATH
