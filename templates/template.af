@@ -2,6 +2,7 @@
 Hunter_[D;DW;E;L;N;DELNW]){
 	?
 	library_sizes_[yes;no]){ ## Missing iterator "mirna", it's broken as of now
+		source ~/software/inits/init_Hunter_dev
 		if [ Hunter_(+) == *W* ]; then
 			WGCNA_flags="--WGCNA_norm_method DESeq2 --WGCNA_all"
 		fi
@@ -10,6 +11,7 @@ Hunter_[D;DW;E;L;N;DELNW]){
 		fi
 		?
 		degenes_Hunter.R -i $input -o ./ -t $target -m Hunter_(+) $WGCNA_flags $library_flag
+		retVal=$?
 		if [ $retVal -ne 0 ]; then
 	        echo ERROR: DEGenes Hunter exited with code $retVal
 	        exit $retVal
@@ -169,7 +171,7 @@ generate_DGHunter_command_[DEG_env;DEG_add;func_env;func_add]){
 }
 
 generate_targets_[no_ft;add_ft]){
-	source ~aestebanm/software/inits/init_Hunter_dev
+	source ~/software/inits/init_Hunter_dev
 	if [ (*) == "add_ft" ]; then
 		ft_flags="--additional_features "phenotype,genotype,age,height" --aux_options \"'-S phenotype,genotype -N age,height'\""
 	else
