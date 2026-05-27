@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 
-source ~/dev_py/pytoflow/bin/activate
+source ~soft_bio_267/initializes/init_python
 export CODE_PATH=`pwd`
 data_dir=$CODE_PATH/Data
 source $CODE_PATH/config_daemon
