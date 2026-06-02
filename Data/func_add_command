@@ -1,0 +1,2 @@
+ --remote ALWAYS --custom what -f beautiful -G BP,MF,CC --analysis_type good -P 0.05 --model_organism mmus --annot_file this_is_not_it --universe on_fire --input_gene_id ENSEMBL --func_annot_db cibeles --GO_subont FP --pthreshold NA --qthreshold 1 --max_genes_plot 0 --cores 69 --task_size 420
+
