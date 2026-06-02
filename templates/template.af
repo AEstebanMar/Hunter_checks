@@ -58,7 +58,6 @@ clust2enrich){
 	source ~/software/inits/init_Hunter_dev
 	?
 	clusters_to_enrichment.R -i $data_dir'/clusters_aggregated.txt' -w 3 -o functional_results -f MF -k ENSEMBL -O "Human" --size_item 0.1 --size_category 0.5 --size_edge 0.1 --hilight "ATPase binding" --hilight_alpha 0.7 --node_label "category"
-	# clusters_to_enrichment.R -i $data_dir'/clusters_aggregated.txt' -w 3 -o functional_results -f MF -k ENSEMBL -O "Human" --cex_label_category 1.5 --cex_line 0.6 --node_label "category" --cex_pie2axis 1.4
 	retVal=$?
     if [ $retVal -ne 0 ]; then
        echo ERROR: Clusters to enrichment exited with code $retVal
@@ -71,6 +70,7 @@ multivar_mine_[integration;no_integration]){
     flags="-i "$multivar_data/metabolomics.txt,$multivar_data/phenotypes.txt,$multivar_data/severity_scales.txt" -A "metabolomics.txt:s,phenotypes.txt:n" -S "severity_scales.txt:c" -c -n 2"
     if [ (*) == "no_integration" ]; then
     	flags=`echo $flags --do_not_integrate`
+    fi
     ?
     multivar_mine.R $flags
     retVal=$?
@@ -94,7 +94,7 @@ dummy_Hunter){
 degsynth_[vanilla;norm;exp;det]){
 	source ~/software/inits/init_Hunter_dev
 	if [ (*) == "vanilla" ]; then
-		flags="degsynth.R -m compcodeR --samples.per.cond 24 -n 14760 -d 0 --fraction.upregulated 0.5 -o synth --dataset="dataset" --output_dir ./ --seed 69 --between.group.diffdisp FALSE"
+		flags="-m compcodeR --samples.per.cond 24 -n 14760 -d 0 --fraction.upregulated 0.5 -o synth --dataset="dataset" --output_dir ./ --seed 69 --between.group.diffdisp FALSE"
 	else
 		flags="--inputfile $synth_data_dir"/input_counts" -m compcodeR --samples.per.cond 6 --effect_sizes 1,2 -n 14760 --fraction.upregulated 0.5 -o synth --dataset="dataset" --output_dir ./ --ndegs "338,338" --seed 69 --overlap_size 0.6 --condition_columns "2,3" --exp_design $synth_data_dir"/exp_design" --fixed_DEG_lists $synth_data_dir"/degs1,"$synth_data_dir"/degs2" --fixed_upregulated_DEGs $synth_data_dir"/up_degs_condition,"$synth_data_dir"/up_degs_condition2" --method (*)"
 	fi
@@ -176,6 +176,7 @@ generate_targets_[no_ft;add_ft]){
 		ft_flags="--additional_features "phenotype,genotype,age,height" --aux_options \"'-S phenotype,genotype -N age,height'\""
 	else
 		ft_flags='--aux_options ""'
+	fi
 	?
 	generate_targets.R -o ./ -e experiment_design -t 'ctrl_vs_pat_all_nopat66>condition:control,patient' \
 					   -b $data_dir"/blacklist_pat66" $ft_flags
