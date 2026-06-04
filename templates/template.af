@@ -24,7 +24,7 @@ func_ora_[JobRegExp:library_sizes_:-]){
 	source $root_dir/config_daemon
 	export PATH=$aux_parsers_path:$PATH
 	custom_nomenclature="$data_dir/c3.tft.v2023.2.Hs.entrez.gmt,$data_dir/c4.all.v2023.2.Hs.entrez.gmt,$data_dir/c6.all.v2023.2.Hs.entrez.gmt,$data_dir/h.all.v2023.2.Hs.entrez.gmt"
-	functional_hunter_options=`generate_DGHunter_command.rb -m "functional_Hunter"`
+	functional_hunter_options=`generate_DGHunter_command.R -m "functional_Hunter"`
 	?
 	functional_Hunter.R $functional_hunter_options -i (*)/ -t E -c 3 \
 						-o ./functional_enrichment --size_item 0.1 --size_category 1.5 --size_edge 0.1 --hilight "chromosome segregation" --hilight_alpha 0.7 --node_label "category"
@@ -94,9 +94,9 @@ dummy_Hunter){
 degsynth_[vanilla;norm;exp;det]){
 	source ~/software/inits/init_Hunter_dev
 	if [ (*) == "vanilla" ]; then
-		flags="-m compcodeR --samples.per.cond 24 -n 14760 -d 0 --fraction.upregulated 0.5 -o synth --dataset="dataset" --output_dir ./ --seed 69 --between.group.diffdisp FALSE"
+		flags="-m compcodeR --samples.per.cond 24 -n 14760 -d 0 --fraction.upregulated 0.5 -o synth --dataset "dataset" --output_dir ./ --seed 69 --between.group.diffdisp FALSE"
 	else
-		flags="--inputfile $synth_data_dir"/input_counts" -m compcodeR --samples.per.cond 6 --effect_sizes 1,2 -n 14760 --fraction.upregulated 0.5 -o synth --dataset="dataset" --output_dir ./ --ndegs "338,338" --seed 69 --overlap_size 0.6 --condition_columns "2,3" --exp_design $synth_data_dir"/exp_design" --fixed_DEG_lists $synth_data_dir"/degs1,"$synth_data_dir"/degs2" --fixed_upregulated_DEGs $synth_data_dir"/up_degs_condition,"$synth_data_dir"/up_degs_condition2" --method (*)"
+		flags="--inputfile $synth_data_dir"/input_counts" -m compcodeR --samples.per.cond 6 --effect_sizes 1,2 -n 14760 --fraction.upregulated 0.5 -o synth --dataset "dataset" --output_dir ./ --ndegs "338,338" --seed 69 --overlap_size 0.6 --condition_columns "2,3" --exp_design $synth_data_dir"/exp_design" --fixed_DEG_lists $synth_data_dir"/degs1,"$synth_data_dir"/degs2" --fixed_upregulated_DEGs $synth_data_dir"/up_degs_condition,"$synth_data_dir"/up_degs_condition2" --method (*)"
 	fi
 	?
 	degsynth.R $flags
@@ -123,7 +123,7 @@ degsynth_[vanilla;norm;exp;det]){
 
 generate_DGHunter_command_[DEG_env;DEG_add;func_env;func_add]){
 	source ~/software/inits/init_Hunter_dev
-	if [ (*) == "DEG_"* ]; then
+	if [[ (*) == DEG_* ]]; then
 		export de_pvalue=1
 		export de_packages="DELNW"
 		export de_min_pack=3
@@ -145,7 +145,7 @@ generate_DGHunter_command_[DEG_env;DEG_add;func_env;func_add]){
 		if [ (*) == "DEG_add" ]; then
 			export ADD_OPTIONS='--Control_columns "ctrl1,ctrl2,ctrl3" --Treatment_columns "treat1,treat2,treat3" --reads 20 --minlibraries 16 --filter_type "lax" --p_val_cutoff 0 --lfc 0.5 --modules E --minpack_common 6 --target_file ./ctrl_vs_pat_all_nopat66_target.txt --external_DEA_file path/to/DEA/file --model_variables "yes" --string_factors "added_string_Fact" --numeric_factors "added_num_fact" --WGCNA_memory 14 --WGCNA_norm_method "added_wcgna_norm_method" --WGCNA_deepsplit 152 --WGCNA_min_genes_cluster 1 --WGCNA_detectcutHeight 1 --WGCNA_mergecutHeight 1 --WGCNA_all TRUE --WGCNA_blockwiseNetworkType "yes" --WGCNA_blockwiseTOMType "yes" --WGCNA_minCoreKME -4 --WGCNA_minCoreKMESize 1 --WGCNA_minKMEtoStay 1 --WGCNA_corType "easy" --multifactorial "whynot" --query_genes "every,gene,ever" --seed 420 --count_var_quantile 200 --deseq2_var_quantile 200'
 		fi
-	else if [ (*) == "func_*" ]; then
+	elif [[ (*) == func_* ]]; then
 		export fun_remote_mode=NEVER
 		export custom_nomenclature=this_is_it
 		export fun_an_type=beautiful
