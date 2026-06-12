@@ -46,7 +46,7 @@ coRmiT){
 			 -R miRNA_target.html -M $Multimir_path \
 			 -c "'"$CORR_THRS"'" -u 2 -T -o results $ADD_OPT_CORR
 	add_annotation.R -i $mirnaseq_input_path/Common_results/hunter_results_table.txt \
-					 -o results.txt -m --column rownames
+					 -o results.txt -m --column "rownames" -I "MIMAT"
 	retVal=$?
     if [ $retVal -ne 0 ]; then
     	echo ERROR: coRmiT exited with code $retVal
