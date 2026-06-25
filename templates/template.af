@@ -1,16 +1,21 @@
 
-Hunter_[D;DW;E;L;N;DELNW]){
+Hunter_[D;DW;E;L;N;DELNW;NONE]){
 	?
 	library_sizes_[yes;no]){ ## Missing iterator "mirna", it's broken as of now
 		source ~/software/inits/init_Hunter_dev
 		if [ Hunter_(+) == *W* ]; then
 			WGCNA_flags="--WGCNA_norm_method DESeq2 --WGCNA_all"
 		fi
+		if [ Hunter_(+) == "NONE" ]; then
+			modules_flag=\"\"
+		else 
+			modules_flag=Hunter_(+)
+		fi
 		if [ (*) == "yes" ]; then
 			library_flag="--library_sizes $library_sizes"
 		fi
 		?
-		degenes_Hunter.R -i $input -o ./ -t $target -m Hunter_(+) $WGCNA_flags $library_flag
+		degenes_Hunter.R -i $input -o ./ -t $target -m $modules_flag $WGCNA_flags $library_flag
 		retVal=$?
 		if [ $retVal -ne 0 ]; then
 	        echo ERROR: DEGenes Hunter exited with code $retVal
@@ -172,12 +177,12 @@ generate_DGHunter_command_[DEG_env;DEG_add;func_env;func_add]){
 
 generate_targets_[no_ft;add_ft]){
 	source ~/software/inits/init_Hunter_dev
+	common_flags='-o ./ -e $data_dir/experiment_design -t WT_vs_mut>cond:WT,mut -b $data_dir/blacklist_test'
 	if [ (*) == "add_ft" ]; then
-		ft_flags="--additional_features "phenotype,genotype,age,height" --aux_options \"'-S phenotype,genotype -N age,height'\""
+		?
+		generate_targets.R $common_flags --additional_features "phenotype,genotype,age,height" --aux_options \"'-S phenotype,genotype -N age,height'\"
 	else
-		ft_flags='--aux_options ""'
+		?
+		generate_targets.R $common_flags --aux_options ""
 	fi
-	?
-	generate_targets.R -o ./ -e experiment_design -t 'ctrl_vs_pat_all_nopat66>condition:control,patient' \
-					   -b $data_dir"/blacklist_pat66" $ft_flags
 }
