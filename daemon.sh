@@ -12,6 +12,7 @@ rnaseq_input_path=/mnt/home/users/bio_267_uma/jperkins/test/ehs_cormit_sarcoma/r
 mirnaseq_input_path=/mnt/home/users/bio_267_uma/jperkins/test/ehs_cormit_sarcoma/res_min_mirna
 Multimir_path=/mnt/home/users/bio_267_uma/jperkins/test/ehs_cormit_sarcoma/reduced_multimir.RData
 #Multimir_path=/mnt/home/soft/soft_bio_267/programs/x86_64/ExpHunterSuite/inst/multimir_data/parsed_raw_score_mmu.RData
+gtf_path=/mnt2/fscratch/users/bio_267_uma/vcarayol/resources/hsGRc38
 add_opt_corr='--tag_filter:prevalent;prevalent:-u:2:--output_pairs:validated'
 export whitelist=""	#-------#	AutoFlow whitelist. Works as a regexp. Takes precedence over blacklist.
 export blacklist="" #-------#	AutoFlow blacklist. Works as a regexp.
@@ -54,7 +55,8 @@ variables=`echo -e "
 	\\$fun_organism='Human',
 	\\$annotation_list='',
 	\\$multivar_data=$multivar_data,
-	\\$synth_data_dir=$data_dir"/synth"
+	\\$synth_data_dir=$data_dir"/synth",
+	\\$gtf_path=$gtf_path
 	" | tr -d [:space:]`
 
 if [ "$mode" == "exec" ] ; then
