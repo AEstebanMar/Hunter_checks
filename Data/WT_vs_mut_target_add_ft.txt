@@ -1,0 +1,5 @@
+sample	treat	phenotype	genotype	age	height
+A	Ctrl	present	good	1	100
+B	Ctrl	present	good	2	200
+D	Treat	absent	bad	10	50
+E	Treat	absent	bad	20	100

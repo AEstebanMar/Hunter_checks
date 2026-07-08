@@ -1,0 +1,2 @@
+ -P 1 -m DELNW -c 3 -f 0.05 --WGCNA_mergecutHeight 50 --WGCNA_min_genes_cluster 5 --WGCNA_detectcutHeight 40 --WGCNA_deepsplit 20 -r 10 --filter_type strict -l 6 -S env_feature -N env_num_feature -t ./ctrl_vs_pat_all_nopat66_target.txt -q one,two,three_genes --seed 69 --count_var_quantile 0 --deseq2_var_quantile 0
+

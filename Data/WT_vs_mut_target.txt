@@ -1,0 +1,5 @@
+sample	treat
+A	Ctrl
+B	Ctrl
+D	Treat
+E	Treat
