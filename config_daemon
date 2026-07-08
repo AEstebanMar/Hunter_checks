@@ -82,7 +82,7 @@ elif [[ $experiment_type == "RNAseq_genome" || $experiment_type == "RNAseq_trans
 	######## Functional DEgenesHunter Analysis	#######
 	
 	export fun_pvalue=0.1 #-------#	Minimum P-value threshold
-	export fun_an_type="KgRdD"	#-------#	Functional annotation database and enrichment method(s) to use (topGO: G = GO | clusterProfiler: K = KEGG, g = GO, R = Reactome). D = Disease Ontology (DO), d = DGN.
+	export fun_an_type="KG"	#-------#	Functional annotation database and enrichment method(s) to use (topGO: G = GO | clusterProfiler: K = KEGG, g = GO, R = Reactome). D = Disease Ontology (DO), d = DGN.
 	export fun_an_performance="o"	#-------#	Functional analysis type ("o" for Over Representation Analysis and "g" for Gene Set Enrichment Analysis)
 	export GO_modules="MBC"	#-------#	Gene subontology analysis to perform (M = Molecular Function, B = Biological Process, C = Celular Components)
 	export fun_remote_mode=''	#-------#	Remote mode. deamon.sh 4 is executed at login when remote mode is activated (Use (b) to launch biomaRt translation; (k) to use Kegg remote data base)
