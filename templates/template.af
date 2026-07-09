@@ -3,15 +3,15 @@ Hunter_[D;DW;E;L;N;DELNW;NONE]){
 	?
 	library_sizes_[yes;no]){ ## Missing iterator "mirna", it's broken as of now
 		source ~/software/inits/init_Hunter_dev
-		if [ Hunter_(+) == *W* ]; then
+		if [[ "Hunter_(+)" == *"W"* ]]; then
 			WGCNA_flags="--WGCNA_norm_method DESeq2 --WGCNA_all"
 		fi
-		if [ Hunter_(+) == "NONE" ]; then
+		if [[ "Hunter_(+)" == "NONE" ]]; then
 			modules_flag=\"\"
 		else 
 			modules_flag=Hunter_(+)
 		fi
-		if [ (*) == "yes" ]; then
+		if [[ "(*)" == "yes" ]]; then
 			library_flag="--library_sizes $library_sizes"
 		fi
 		?
