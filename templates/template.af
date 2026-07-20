@@ -2,25 +2,37 @@
 Hunter_[D;DW;E;L;N;DELNW;NONE]){
 	?
 	library_sizes_[yes;no]){ ## Missing iterator "mirna", it's broken as of now
-		source ~/software/inits/init_Hunter_dev
-		if [[ "Hunter_(+)" == *"W"* ]]; then
-			WGCNA_flags="--WGCNA_norm_method DESeq2 --WGCNA_all"
+	source ~/software/inits/init_Hunter_dev
+	rm hunter_check
+	if [[ "Hunter_(+)" == *"W"* ]]; then
+		WGCNA_flags="--WGCNA_norm_method DESeq2 --WGCNA_all"
+	fi
+	if [[ "Hunter_(+)" == "NONE" ]]; then
+		modules_flag=\"\"
+	else 
+		modules_flag=Hunter_(+)
+	fi
+	if [[ "(*)" == "yes" ]]; then
+		library_flag="--library_sizes $library_sizes"
+	fi
+	?
+	degenes_Hunter.R -i $input -o ./ -t $target -m $modules_flag $WGCNA_flags $library_flag
+	if [[ "Hunter_(+)" == "NONE" ]]; then 
+		if [[ $(wc -l < Common_results/hunter_results_table.txt) -eq 1 ]] && [[ -s PCA_results/pca_data.rds ]]; then
+			echo "Success!" > hunter_check
 		fi
-		if [[ "Hunter_(+)" == "NONE" ]]; then
-			modules_flag=\"\"
-		else 
-			modules_flag=Hunter_(+)
+	else 
+		if [[ $(wc -l < Common_results/hunter_results_table.txt) -gt 50 ]]; then
+			echo "Success!" > hunter_check
+			if [[ "Hunter_(+)" == *"W"* ]]; then
+				if [[ $(grep -c "Cluster" Common_results/hunter_results_table.txt) -eq 1 ]]; then
+					rm hunter_check
+					echo "Success!" > hunter_check
+				fi
+			fi
 		fi
-		if [[ "(*)" == "yes" ]]; then
-			library_flag="--library_sizes $library_sizes"
-		fi
-		?
-		degenes_Hunter.R -i $input -o ./ -t $target -m $modules_flag $WGCNA_flags $library_flag
-		retVal=$?
-		if [ $retVal -ne 0 ]; then
-			echo ERROR: DEGenes Hunter exited with code $retVal
-			exit $retVal
-		fi
+	fi
+	task_check: -c "[ -f hunter_check ] && [[ $(wc -l < hunter_check) -eq 1 ]]"
 	}
 }
 
@@ -28,24 +40,21 @@ func_ora_[JobRegExp:library_sizes_:-]){
 	source ~/software/inits/init_Hunter_dev
 	source $root_dir/config_daemon
 	export PATH=$aux_parsers_path:$PATH
+	rm functional_check
 	custom_nomenclature="$data_dir/c3.tft.v2023.2.Hs.entrez.gmt,$data_dir/c4.all.v2023.2.Hs.entrez.gmt,$data_dir/c6.all.v2023.2.Hs.entrez.gmt,$data_dir/h.all.v2023.2.Hs.entrez.gmt"
 	functional_hunter_options=`generate_DGHunter_command.R -m "functional_Hunter"`
-	if [[ $(`find . -type f -regex ".*NONE.sh"` != 0 | wc -l) -eq 1 ]]; then
-		PCA_error_message=$(functional_Hunter.R $functional_hunter_options -i (*)/ -t E -c 3 \
-							-o ./functional_enrichment --size_item 0.1 --size_category 1.5 --size_edge 0.1 --hilight "chromosome segregation" --hilight_alpha 0.7 --node_label "category" -R "fc" -C $custom_nomenclature 2>&1)
-		if [[ $PCA_error_message == *no\ lines\ available\ in\ input* ]]; then
-			echo "Functional enrichment cannot be executed using only the PCA results"
-		fi
+	only_pca_check=`find . -type f -regex ".*NONE.sh"`
+	if [[ "$only_pca_check" != "" ]]; then
+		echo "Success!" > functional_check
 	else
 		?
-		functional_Hunter.R $functional_hunter_options -i (*)/ -t E -c 3 \
-							-o ./functional_enrichment --size_item 0.1 --size_category 1.5 --size_edge 0.1 --hilight "chromosome segregation" --hilight_alpha 0.7 --node_label "category" -R "fc" -C $custom_nomenclature
-		retVal=$?
-	   	if [ $retVal -ne 0 ]; then
-	   	   echo ERROR: Functional enrichment exited with code $retVal
-	   	   exit $retVal
-	   	fi
+		functional_Hunter.R $functional_hunter_options -i (*)/ -t E -c 3 -o ./functional_enrichment --size_item 0.1 --size_category 1.5 \
+																		--size_edge 0.1 --hilight "chromosome segregation" --hilight_alpha 0.7 --node_label "category" -R "fc" -C $custom_nomenclature
+		if [[ $(wc -l < functional_enrichment/hunter_results_table_annotated.txt) -gt 50 ]]; then
+			echo "Success!" > functional_check
+		fi
 	fi
+	task_check: -c "[ -f functional_check ] && [[ $(wc -l < functional_check) -eq 1 ]]"
 }
 
 coRmiT){
@@ -58,95 +67,72 @@ coRmiT){
 			 -m $mirnaseq_input_path --organism $organism \
 			 -R miRNA_target.html -M $Multimir_path \
 			 -c "'"$CORR_THRS"'" -u 2 -T -o results $ADD_OPT_CORR
-	add_annotation.R -i $mirnaseq_input_path/Common_results/hunter_results_table.txt \
-					 -o results.txt -m --column "rownames" -I "MIMAT"
-	retVal=$?
-    if [ $retVal -ne 0 ]; then
-    	echo ERROR: coRmiT exited with code $retVal
-        exit $retVal
-    fi
+	add_annotation.R -i $mirnaseq_input_path/Common_results/hunter_results_table.txt -o results_annotation.txt -m --column "rownames" -I "MIMAT"
+	task_check: -c "[[ $(wc -l < results/target_results_table.txt) -gt 20 ]]"
 }
 
 add_annotation_[miRNA;RNA]){
 	source ~/software/inits/init_Hunter_dev
+	rm annotation_check
 	common_flags='--column rownames'
-	if [ (*) == "miRNA" ]; then
+	if [[ (*) == "miRNA" ]]; then
 		?
 		add_annotation.R -i $data_dir"/hunter_results_table_mirna.txt" \
 							-m $common_flags -I "MIMAT" -o ./hunter_results_table_mirna_name_annotation.txt
-		test_annotation=`diff ./hunter_results_table_mirna_name_annotation.txt $data_dir"/hunter_results_table_mirna_name_annotation.txt"`
+		diff -y ./hunter_results_table_mirna_name_annotation.txt $data_dir"/hunter_results_table_mirna_name_annotation.txt" > annotation_check
 	else
 		add_annotation.R -i $data_dir"/hunter_results_table.txt"  \
 							$common_flags -I "ENSEMBL" -K "SYMBOL" -o ./hunter_results_table_symbol_annotation.txt
-		test_annotation=`diff ./hunter_results_table_symbol_annotation.txt $data_dir"/hunter_results_table_symbol_annotation.txt"`
+		diff -y ./hunter_results_table_symbol_annotation.txt $data_dir"/hunter_results_table_symbol_annotation.txt" > annotation_check
 	fi
-	if [ "$test_annotation" != "" ] ; then
-		echo "Output with annotation column is not what it should be"
-		exit 1
-	else
-		echo "Success!"
-	fi
+	diff_lines=`grep -c "|" annotation_check`
+	task_check: -c "[ -f annotation_check ] && [[ $diff_lines -eq 0 ]]"
 }
 
 clust2enrich){
 	source ~/software/inits/init_Hunter_dev
 	?
 	clusters_to_enrichment.R -i $data_dir'/clusters_aggregated.txt' -w 3 -o functional_results -f MF -k ENSEMBL -O "Human" --size_item 0.1 --size_category 0.5 --size_edge 0.1 --hilight "ATPase binding" --hilight_alpha 0.7 --node_label "category"
-	retVal=$?
-    if [ $retVal -ne 0 ]; then
-       echo ERROR: Clusters to enrichment exited with code $retVal
-       exit $retVal
-    fi
+	task_check: -c "[[ $(wc -l < functional_results/enr_cls_MF.csv) -gt 50 ]]"
 }
 
 multivar_mine_[integration;no_integration]){
-    source ~/software/inits/init_Hunter_dev
-    flags="-i "$multivar_data/metabolomics.txt,$multivar_data/phenotypes.txt,$multivar_data/severity_scales.txt" -A "metabolomics.txt:s,phenotypes.txt:n" -S "severity_scales.txt:c" -c -n 2"
-    if [ (*) == "no_integration" ]; then
-    	flags=`echo $flags --do_not_integrate`
-    fi
-    ?
-    multivar_mine.R $flags
-    retVal=$?
-    if [ $retVal -ne 0 ]; then
-       echo ERROR: Multivar mine exited with code $retVal
-       exit $retVal
-    fi
+   source ~/software/inits/init_Hunter_dev
+   flags="-i "$multivar_data/metabolomics.txt,$multivar_data/phenotypes.txt,$multivar_data/severity_scales.txt" -A "metabolomics.txt:s,phenotypes.txt:n" -S "severity_scales.txt:c" -c -n 2"
+   if [[ (*) == "no_integration" ]]; then
+   	flags=`echo $flags --do_not_integrate`
+   fi
+   ?
+   multivar_mine.R $flags
+   multivar_check=`find ./results/PCA_results -type f -regex '.*eigenvectors.txt' -exec cat {} + | wc -l`
+	task_check: -c "[[ $multivar_check -gt 50 ]]"
 }
 
 dummy_Hunter){
 	source ~/software/inits/init_Hunter_dev
 	?
-	degenes_Hunter.R -m "F" -e $data_dir/dummy_DEGs -o output
-	retVal=$?
-    if [ $retVal -ne 0 ]; then
-       echo ERROR: Dummy Hunter exited with code $retVal
-       exit $retVal
-    fi
+	degenes_Hunter.R -m "F" -e $data_dir/dummy_DEGs -o ./
+	task_check: -c "[[ $(wc -l < Common_results/hunter_results_table.txt) -gt 50 ]]"
 }
 
 degsynth_[vanilla;norm;exp;det]){
 	source ~/software/inits/init_Hunter_dev
-	if [ (*) == "vanilla" ]; then
+	rm degsynth_check
+	if [[ (*) == "vanilla" ]]; then
 		flags="-m compcodeR --samples.per.cond 6 -n 14760 -d 0 --fraction.upregulated 0.5 -o synth --dataset "dataset" --output_dir ./ --seed 69 --between.group.diffdisp FALSE"
 	else
 		flags="--inputfile $synth_data_dir"/input_counts" -m compcodeR --samples.per.cond 6 --effect_sizes 1,2 -n 14760 --fraction.upregulated 0.5 -o synth --dataset "dataset" --output_dir ./ --ndegs "338,338" --seed 69 --overlap_size 0.6 --condition_columns "2,3" --exp_design $synth_data_dir"/exp_design" --fixed_DEG_lists $synth_data_dir"/degs1,"$synth_data_dir"/degs2" --fixed_upregulated_DEGs $synth_data_dir"/up_degs_condition,"$synth_data_dir"/up_degs_condition2" --method (*)"
 	fi
 	?
 	degsynth.R $flags
-   rm *diff
-	counts_diff=`diff synth_counts.tsv $synth_data_dir"/(*)_counts"`
-	if [ "$counts_diff" != "" ] ; then
-		echo "Output is not equal to snapshots"
-		echo $counts_diff > counts_diff
-		exit 1
-	else
-		echo "Success!"
-	fi
+	diff -y synth_counts.tsv $synth_data_dir"/(*)_counts" > degsynth_check
+   diff_lines=`grep -c "|" degsynth_check`
+	task_check: -c "[ -f degsynth_check ] && [[ $diff_lines -eq 0 ]]"
 }
 
 generate_DGHunter_command_[DEG_env;DEG_add;func_env;func_add]){
 	source ~/software/inits/init_Hunter_dev
+	rm generate_DGHunter_check
 	if [[ (*) == DEG_* ]]; then
 		export de_pvalue=1
 		export de_packages="DELNW"
@@ -166,7 +152,7 @@ generate_DGHunter_command_[DEG_env;DEG_add;func_env;func_add]){
 		export seed=69
 		export count_var_quantile=0
 		export deseq2_var_quantile=0
-		if [ (*) == "DEG_add" ]; then
+		if [[ (*) == "DEG_add" ]]; then
 			export ADD_OPTIONS='--Control_columns "ctrl1,ctrl2,ctrl3" --Treatment_columns "treat1,treat2,treat3" --reads 20 --minlibraries 16 --filter_type "lax" --p_val_cutoff 0 --lfc 0.5 --modules E --minpack_common 6 --target_file ./ctrl_vs_pat_all_nopat66_target.txt --external_DEA_file path/to/DEA/file --model_variables "yes" --string_factors "added_string_Fact" --numeric_factors "added_num_fact" --WGCNA_memory 14 --WGCNA_norm_method "added_wcgna_norm_method" --WGCNA_deepsplit 152 --WGCNA_min_genes_cluster 1 --WGCNA_detectcutHeight 1 --WGCNA_mergecutHeight 1 --WGCNA_all TRUE --WGCNA_blockwiseNetworkType "yes" --WGCNA_blockwiseTOMType "yes" --WGCNA_minCoreKME -4 --WGCNA_minCoreKMESize 1 --WGCNA_minKMEtoStay 1 --WGCNA_corType "easy" --multifactorial "whynot" --query_genes "every,gene,ever" --seed 420 --count_var_quantile 200 --deseq2_var_quantile 200'
 		fi
 	elif [[ (*) == func_* ]]; then
@@ -180,7 +166,7 @@ generate_DGHunter_command_[DEG_env;DEG_add;func_env;func_add]){
 		export annotation_list=lol
 		export clean_parentals=TRUE
 		export universe=big
-		if [ (*) == "func_add" ]; then
+		if [[ (*) == "func_add" ]]; then
 			export ADD_OPTIONS='--model_organism mmus --annot_file this_is_not_it --input_gene_id ENSEMBL --func_annot_db cibeles --GO_subont FP --custom what --analysis good --remote ALWAYS --clean_parentals FALSE --pthreshold 1 --qthreshold 1 --max_genes_plot 0 --cores 69 --task_size 420 --universe on_fire'
 		fi
 	fi
@@ -188,70 +174,55 @@ generate_DGHunter_command_[DEG_env;DEG_add;func_env;func_add]){
 		?
 		generate_DGHunter_command.R -m "degenes_Hunter" > command
 		echo -e "\n" >> command
-		if [ (*) == "DEG_env" ]; then
-			test=`diff command $data_dir"/DEG_env_command"`
+		if [[ (*) == "DEG_env" ]]; then
+			diff -y command $data_dir"/DEG_env_command" > generate_DGHunter_check
 		else 
-			test=`diff command $data_dir"/DEG_add_command"`
+			diff -y command $data_dir"/DEG_add_command" > generate_DGHunter_check
 		fi
 	else 
 		generate_DGHunter_command.R -m "functional_Hunter" > command
 		echo -e "\n" >> command
-		if [ (*) == "func_env" ]; then
-			test=`diff command $data_dir"/func_env_command"`
+		if [[ (*) == "func_env" ]]; then
+			diff -y command $data_dir"/func_env_command" > generate_DGHunter_check
 		else 
-			test=`diff command $data_dir"/func_add_command"`
+			diff -y command $data_dir"/func_add_command" > generate_DGHunter_check
 		fi
 	fi
-	if [ "$test" != "" ]; then
-		echo "Command generated is not what it should be"
-		exit 1
-	else
-		echo "Success!"
-	fi
+   diff_lines=`grep -c "|" generate_DGHunter_check`
+	task_check: -c "[ -f generate_DGHunter_check ] && [[ $diff_lines -eq 0 ]]" 
 }
 
 generate_targets_[add_ft;no_ft]){
 	source ~/software/inits/init_Hunter_dev
+	rm target_check
 	common_flags='-e $data_dir/experiment_design -t WT_vs_mut>cond:WT,mut -b $data_dir/blacklist'
-	if [ (*) == "add_ft" ]; then
+	if [[ (*) == "add_ft" ]]; then
 		?
 		generate_targets.R $common_flags --additional_features "phenotype,genotype,age,height" --aux_options \"'-S phenotype,genotype -N age,height'\" 
-		test_target_txt=`diff ./WT_vs_mut_target.txt $data_dir"/WT_vs_mut_target_add_ft.txt"`
-		test_target_aux=`diff ./WT_vs_mut_target.aux $data_dir"/WT_vs_mut_target_add_ft.aux"`
-		if [ "$test_target_txt" != "" ] || [ "$test_target_aux" != "" ] ; then
-			echo "Target generated (.txt or .aux) is not what it should be"
-			exit 1
-		else
-			echo "Success!"
-		fi
+		diff -y ./WT_vs_mut_target.txt $data_dir"/WT_vs_mut_target_add_ft.txt" > target_check
+		diff -y ./WT_vs_mut_target.aux $data_dir"/WT_vs_mut_target_add_ft.aux" >> target_check
 	else
 		generate_targets.R $common_flags --aux_options "" 
-		test_target_txt=`diff ./WT_vs_mut_target.txt $data_dir"/WT_vs_mut_target.txt"`
-		if [ "$test_target_txt" != "" ] ; then
-			echo "Target generated is not what it should be"
-			exit 1
-		else
-			echo "Success!"
-		fi
+		diff -y ./WT_vs_mut_target.txt $data_dir"/WT_vs_mut_target.txt" > target_check
 	fi
+	diff_lines=`grep -c "|" target_check`
+	task_check: -c "[ -f target_check ] && [[ $diff_lines -eq 0 ]]" 
+
 }
 
 add_ref_features_[degenes;functional]){
 	source ~/software/inits/init_Hunter_dev
-	if [ (*) == "degenes" ]; then
+	rm features_check
+	if [[ (*) == "degenes" ]]; then
 		?
 		add_ref_features.R -i $data_dir"/hunter_results_table.txt" \
 							--gtf $gtf_path/annotation.gtf -o ./hunter_results_table.txt
-		test_features=`diff ./hunter_results_table.txt $data_dir"/hunter_results_table_features.txt"`
+		diff -y ./hunter_results_table.txt $data_dir"/hunter_results_table_features.txt" > features_check
 	else
 		add_ref_features.R -i $data_dir"/hunter_results_table_annotated.txt" \
 							--gtf $gtf_path/annotation.gtf --column_name "input_IDs" -o ./hunter_results_table_annotated.txt
-		test_features=`diff ./hunter_results_table_annotated.txt $data_dir"/hunter_results_table_annotated_features.txt"`
+		diff -y ./hunter_results_table_annotated.txt $data_dir"/hunter_results_table_annotated_features.txt" > features_check
 	fi
-	if [ "$test_features" != "" ] ; then
-		echo "Output with ref features is not what it should be"
-		exit 1
-	else
-		echo "Success!"
-	fi
+	diff_lines=`grep -c "|" features_check`
+	task_check: -c "[ -f features_check ] && [[ $diff_lines -eq 0 ]]" 
 }
