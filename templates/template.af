@@ -85,7 +85,7 @@ add_annotation_[miRNA;RNA]){
 							$common_flags -I "ENSEMBL" -K "SYMBOL" -o ./hunter_results_table_symbol_annotation.txt
 		diff -y ./hunter_results_table_symbol_annotation.txt $data_dir"/hunter_results_table_symbol_annotation.txt" > annotation_check
 	fi
-	diff_lines=`grep -c "|" annotation_check`
+	diff_lines=`grep -e "|\|>" -c annotation_check`
 	task_check: -c "[ -f annotation_check ] && [[ $diff_lines -eq 0 ]]"
 }
 
@@ -126,7 +126,7 @@ degsynth_[vanilla;norm;exp;det]){
 	?
 	degsynth.R $flags
 	diff -y synth_counts.tsv $synth_data_dir"/(*)_counts" > degsynth_check
-   diff_lines=`grep -c "|" degsynth_check`
+   diff_lines=`grep -e "|\|>" -c degsynth_check`
 	task_check: -c "[ -f degsynth_check ] && [[ $diff_lines -eq 0 ]]"
 }
 
@@ -188,26 +188,28 @@ generate_DGHunter_command_[DEG_env;DEG_add;func_env;func_add]){
 			diff -y command $data_dir"/func_add_command" > generate_DGHunter_check
 		fi
 	fi
-   diff_lines=`grep -c "|" generate_DGHunter_check`
+   diff_lines=`grep -e "|\|>" -c generate_DGHunter_check`
 	task_check: -c "[ -f generate_DGHunter_check ] && [[ $diff_lines -eq 0 ]]" 
 }
 
-generate_targets_[add_ft;no_ft]){
+generate_targets_[add_ft;no_ft;filter]){
 	source ~/software/inits/init_Hunter_dev
 	rm target_check
-	common_flags='-e $data_dir/experiment_design -t WT_vs_mut>cond:WT,mut -b $data_dir/blacklist'
+	common_flags='-e $data_dir/experiment_design -b $data_dir/blacklist'
 	if [[ (*) == "add_ft" ]]; then
 		?
-		generate_targets.R $common_flags --additional_features "phenotype,genotype,age,height,hyphen-column" --aux_options \"'-S phenotype,genotype,hyphen-column -N age,height'\"  
+		generate_targets.R -t "WT_vs_mut>cond:WT,mut" $common_flags --additional_features "phenotype,genotype,age,height,hyphen-column" --aux_options \"'-S phenotype,genotype,hyphen-column -N age,height'\"  
 		diff -y ./WT_vs_mut_target.txt $data_dir"/WT_vs_mut_target_add_ft.txt" > target_check
 		diff -y ./WT_vs_mut_target.aux $data_dir"/WT_vs_mut_target_add_ft.aux" >> target_check
-	else
-		generate_targets.R $common_flags --aux_options "" 
+	elif [[ (*) == "no_ft" ]]; then
+		generate_targets.R -t "WT_vs_mut>cond:WT,mut" $common_flags --aux_options "" 
+		diff -y ./WT_vs_mut_target.txt $data_dir"/WT_vs_mut_target.txt" > target_check
+	else 
+		generate_targets.R -t "WT_vs_mut>group:WT,mut_1/mut_2" $common_flags --aux_options "" 
 		diff -y ./WT_vs_mut_target.txt $data_dir"/WT_vs_mut_target.txt" > target_check
 	fi
-	diff_lines=`grep -c "|" target_check`
+	diff_lines=`grep -e "|\|>" -c target_check`
 	task_check: -c "[ -f target_check ] && [[ $diff_lines -eq 0 ]]" 
-
 }
 
 add_ref_features_[degenes;functional]){
@@ -223,6 +225,6 @@ add_ref_features_[degenes;functional]){
 							--gtf $gtf_path/annotation.gtf --column_name "input_IDs" -o ./hunter_results_table_annotated.txt
 		diff -y ./hunter_results_table_annotated.txt $data_dir"/hunter_results_table_annotated_features.txt" > features_check
 	fi
-	diff_lines=`grep -c "|" features_check`
+	diff_lines=`grep -e "|\|>" -c features_check`
 	task_check: -c "[ -f features_check ] && [[ $diff_lines -eq 0 ]]" 
 }

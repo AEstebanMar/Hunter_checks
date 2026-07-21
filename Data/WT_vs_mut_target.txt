@@ -1,5 +1,7 @@
 sample	treat
 A	Ctrl
 B	Ctrl
-D	Treat
+D	Ctrl
 E	Treat
+G	Treat
+H	Treat

@@ -1,5 +1,7 @@
 sample	treat	phenotype	genotype	age	height	hyphen-column
 A	Ctrl	present	good	1	100	true
 B	Ctrl	present	good	2	200	true
-D	Treat	absent	bad	10	50	false
-E	Treat	absent	bad	20	100	false
+D	Ctrl	present	good	4	400	true
+E	Treat	absent	bad	10	50	false
+G	Treat	absent	bad	30	150	false
+H	Treat	absent	bad	40	200	false
