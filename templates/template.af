@@ -198,7 +198,7 @@ generate_targets_[add_ft;no_ft]){
 	common_flags='-e $data_dir/experiment_design -t WT_vs_mut>cond:WT,mut -b $data_dir/blacklist'
 	if [[ (*) == "add_ft" ]]; then
 		?
-		generate_targets.R $common_flags --additional_features "phenotype,genotype,age,height" --aux_options \"'-S phenotype,genotype -N age,height'\" 
+		generate_targets.R $common_flags --additional_features "phenotype,genotype,age,height,hyphen-column" --aux_options \"'-S phenotype,genotype,hyphen-column -N age,height'\"  
 		diff -y ./WT_vs_mut_target.txt $data_dir"/WT_vs_mut_target_add_ft.txt" > target_check
 		diff -y ./WT_vs_mut_target.aux $data_dir"/WT_vs_mut_target_add_ft.aux" >> target_check
 	else

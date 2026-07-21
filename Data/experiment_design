@@ -1,7 +1,7 @@
-sample	cond	age	height	phenotype	genotype
-A	WT	1	100	present	good
-B	WT	2	200	present	good
-C	WT	3	300	present	good
-D	mut	10	50	absent	bad
-E	mut	20	100	absent	bad
-F	mut	30	150	absent	bad
+sample	cond	age	height	phenotype	genotype	hyphen-column
+A	WT	1	100	present	good	true
+B	WT	2	200	present	good	true
+C	WT	3	300	present	good	true
+D	mut	10	50	absent	bad	false
+E	mut	20	100	absent	bad	false
+F	mut	30	150	absent	bad	false
