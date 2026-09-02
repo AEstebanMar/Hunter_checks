@@ -2,7 +2,7 @@
 
 
 source ~soft_bio_267/initializes/init_python
-source ~/dev_py/venvs/autoflow_next_venv/bin/activate
+source ~soft_bio_267/initializes/init_autoflow
 export CODE_PATH=`pwd`
 data_dir=$CODE_PATH/Data
 source $CODE_PATH/config_daemon
