@@ -36,6 +36,33 @@ Hunter_[D;DW;E;L;N;DELNW;NONE]){
 	}
 }
 
+Hunter_report_[DR;NONE]){
+	source ~/software/inits/init_Hunter_dev
+	rm hunter_check
+	rm report_check
+	if [[ "(*)" == "NONE" ]]; then
+		modules_flag='R'
+	else 
+		modules_flag=(*)
+	fi
+	?
+	degenes_Hunter.R -i $input -o ./ -t $target -m $modules_flag
+	if [[ "(*)" == "NONE" ]]; then 
+		diff -y library_sizes_no_NONE)/Common_results/hunter_results_table.txt Common_results/hunter_results_table.txt > report_check
+		diff_lines=`grep -e "|\|>" -c report_check`
+		if [[ -s DEG_report.html ]] && [[ $diff_lines -eq 0 ]]; then
+			echo "Success!" > hunter_check
+		fi
+	else 
+		diff -y library_sizes_no_D)/Common_results/hunter_results_table.txt Common_results/hunter_results_table.txt > report_check
+		diff_lines=`grep -e "|\|>" -c report_check`
+		if [[ -s DEG_report.html ]] && [[ $diff_lines -eq 0 ]]; then
+			echo "Success!" > hunter_check
+		fi
+	fi
+	task_check: -c "[ -f hunter_check ] && [[ $(wc -l < hunter_check) -eq 1 ]]"
+}
+
 func_ora_[JobRegExp:library_sizes_:-]){
 	source ~/software/inits/init_Hunter_dev
 	source $root_dir/config_daemon
