@@ -120,7 +120,7 @@ clust2enrich){
 	source ~/software/inits/init_Hunter_dev
 	?
 	clusters_to_enrichment.R -i $data_dir'/clusters_aggregated.txt' -w 3 -o functional_results -f MF -k ENSEMBL -O "Human" --size_item 0.1 --size_category 0.5 --size_edge 0.1 --hilight "ATPase binding" --hilight_alpha 0.7 --node_label "category"
-	task_check: -c "[[ $(wc -l < functional_results/enr_cls_MF.csv) -gt 50 ]]"
+	task_check: -c "[[ $(wc -l < functional_results/enr_cls_MF.csv) -gt 50 ]] && [ -s functional_results/clusters_func_report.html ]"
 }
 
 multivar_mine_[integration;no_integration]){
