@@ -22,7 +22,7 @@ Hunter_[D;DW;E;L;N;DELNW;NONE]){
 			echo "Success!" > hunter_check
 		fi
 	else 
-		if [[ $(wc -l < Common_results/hunter_results_table.txt) -gt 50 ]]; then
+		if [[ $(wc -l < Common_results/hunter_results_table.txt) -gt 50 ]] && [[ -s PCA_results/pca_data.rds ]]; then
 			echo "Success!" > hunter_check
 			if [[ "Hunter_(+)" == *"W"* ]]; then
 				if [[ $(grep -c "Cluster" Common_results/hunter_results_table.txt) -eq 1 ]]; then
