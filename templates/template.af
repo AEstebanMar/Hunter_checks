@@ -75,7 +75,7 @@ func_ora_[JobRegExp:library_sizes_:-]){
 		echo "Success!" > functional_check
 	else
 		?
-		functional_Hunter.R $functional_hunter_options -i (*)/ -t E -c 3 -o ./functional_enrichment --size_item 0.1 --size_category 1.5 \
+		functional_Hunter.R $functional_hunter_options -f "KGR" -i (*)/ -t E -c 3 -o ./functional_enrichment --size_item 0.1 --size_category 1.5 \
 																		--size_edge 0.1 --hilight "chromosome segregation" --hilight_alpha 0.7 --node_label "category" -R "fc" -C $custom_nomenclature
 		if [[ $(wc -l < functional_enrichment/hunter_results_table_annotated.txt) -gt 50 ]]; then
 			echo "Success!" > functional_check
