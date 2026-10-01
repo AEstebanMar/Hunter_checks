@@ -5,7 +5,7 @@ Hunter_[D;DW;E;L;N;DELNW;NONE]){
 	source ~/software/inits/init_Hunter_dev
 	rm hunter_check
 	if [[ "Hunter_(+)" == *"W"* ]]; then
-		WGCNA_flags="--WGCNA_norm_method DESeq2 --WGCNA_all"
+		WGCNA_flags="--WGCNA_norm_method DESeq2 --WGCNA_all TRUE"
 	fi
 	if [[ "Hunter_(+)" == "NONE" ]]; then
 		modules_flag=\"\"
@@ -93,8 +93,8 @@ coRmiT){
 	coRmiT.R --strategies "$strats" -r $rnaseq_input_path \
 			 -m $mirnaseq_input_path --organism $organism \
 			 -R miRNA_target.html -M $Multimir_path \
-			 -c "'"$CORR_THRS"'" -u 2 -T -o results $ADD_OPT_CORR
-	add_annotation.R -i $mirnaseq_input_path/Common_results/hunter_results_table.txt -o results_annotation.txt -m --column "rownames" -I "MIMAT"
+			 -c "'"$CORR_THRS"'" -u 2 -T TRUE -o results $ADD_OPT_CORR
+	add_annotation.R -i $mirnaseq_input_path/Common_results/hunter_results_table.txt -o results_annotation.txt -m TRUE --column "rownames" -I "MIMAT"
 	task_check: -c "[[ $(wc -l < results/target_results_table.txt) -gt 20 ]]"
 }
 
@@ -105,7 +105,7 @@ add_annotation_[miRNA;RNA]){
 	if [[ (*) == "miRNA" ]]; then
 		?
 		add_annotation.R -i $data_dir"/hunter_results_table_mirna.txt" \
-							-m $common_flags -I "MIMAT" -o ./hunter_results_table_mirna_name_annotation.txt
+							-m TRUE $common_flags -I "MIMAT" -o ./hunter_results_table_mirna_name_annotation.txt -l TRUE
 		diff -y ./hunter_results_table_mirna_name_annotation.txt $data_dir"/hunter_results_table_mirna_name_annotation.txt" > annotation_check
 	else
 		add_annotation.R -i $data_dir"/hunter_results_table.txt"  \
@@ -125,9 +125,9 @@ clust2enrich){
 
 multivar_mine_[integration;no_integration]){
    source ~/software/inits/init_Hunter_dev
-   flags="-i "$multivar_data/metabolomics.txt,$multivar_data/phenotypes.txt,$multivar_data/severity_scales.txt" -A "metabolomics.txt:s,phenotypes.txt:n" -S "severity_scales.txt:c" -c -n 2"
+   flags="-i "$multivar_data/metabolomics.txt,$multivar_data/phenotypes.txt,$multivar_data/severity_scales.txt" -A "metabolomics.txt:s,phenotypes.txt:n" -S "severity_scales.txt:c" -c FALSE -n 2"
    if [[ (*) == "no_integration" ]]; then
-   	flags=`echo $flags --do_not_integrate`
+   	flags=`echo $flags --do_not_integrate TRUE`
    fi
    ?
    multivar_mine.R $flags
@@ -138,7 +138,7 @@ multivar_mine_[integration;no_integration]){
 dummy_Hunter){
 	source ~/software/inits/init_Hunter_dev
 	?
-	degenes_Hunter.R -m "F" -e $data_dir/dummy_DEGs -o ./
+	degenes_Hunter.R -m "FR" -e $data_dir/dummy_DEGs -o ./
 	task_check: -c "[[ $(wc -l < Common_results/hunter_results_table.txt) -gt 50 ]]"
 }
 
