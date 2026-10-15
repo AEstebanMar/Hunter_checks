@@ -63,6 +63,9 @@ Hunter_report_[DR;NONE]){
 	task_check: -c "[ -f hunter_check ] && [[ $(wc -l < hunter_check) -eq 1 ]]"
 }
 
+# Warning in tasks 2, 3, 7, and 11 (we believe it is data-related)
+# `Warning message:
+#	`In sqrt((n - 2)/(1 - r^2)) : NaNs produced
 func_ora_[JobRegExp:library_sizes_:-]){
 	source ~/software/inits/init_Hunter_dev
 	source $root_dir/config_daemon
@@ -219,7 +222,7 @@ generate_DGHunter_command_[DEG_env;DEG_add;func_env;func_add]){
 	task_check: -c "[ -f generate_DGHunter_check ] && [[ $diff_lines -eq 0 ]]" 
 }
 
-generate_targets_[add_ft;no_ft;filter]){
+generate_targets_[add_ft;no_ft;multiple_treat]){
 	source ~/software/inits/init_Hunter_dev
 	rm target_check
 	common_flags='-e $data_dir/experiment_design -b $data_dir/blacklist'
