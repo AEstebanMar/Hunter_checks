@@ -222,7 +222,7 @@ generate_DGHunter_command_[DEG_env;DEG_add;func_env;func_add]){
 	task_check: -c "[ -f generate_DGHunter_check ] && [[ $diff_lines -eq 0 ]]" 
 }
 
-generate_targets_[add_ft;no_ft;multiple_treat]){
+generate_targets_[add_ft;no_ft;multiple_levels]){
 	source ~/software/inits/init_Hunter_dev
 	rm target_check
 	common_flags='-e $data_dir/experiment_design -b $data_dir/blacklist'
@@ -235,7 +235,7 @@ generate_targets_[add_ft;no_ft;multiple_treat]){
 		generate_targets.R -t "WT_vs_mut>cond:WT,mut" $common_flags --aux_options "" 
 		diff -y ./WT_vs_mut_target.txt $data_dir"/WT_vs_mut_target.txt" > target_check
 	else 
-		generate_targets.R -t "WT_vs_mut>group:WT,mut_1/mut_2" $common_flags --aux_options "" 
+		generate_targets.R -t "WT_vs_mut>group:WT_1/WT_2,mut_1/mut_2" $common_flags --aux_options "" 
 		diff -y ./WT_vs_mut_target.txt $data_dir"/WT_vs_mut_target.txt" > target_check
 	fi
 	diff_lines=`grep -e "|\|>" -c target_check`
