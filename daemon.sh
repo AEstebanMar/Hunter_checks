@@ -61,14 +61,14 @@ variables=`echo -e "
 	" | tr -d [:space:]`
 
 if [ "$mode" == "exec" ] ; then
-	AutoFlow -w $template -V $variables $aux_opt -o exec_DEG_wf -e $list_options
+	AutoFlow -w $template -V $variables $aux_opt -o exec_DEG_wf -e $list_options -n "cpu"
 
 elif [ "$mode" == "check" ]; then
 	flow_logger -w -e exec_DEG_wf -r all
 
 elif [ "$mode" == "rescue" ]; then
 	echo Regenerating code
-	AutoFlow -w $template -V $variables $aux_opt -o exec_DEG_wf -v -e $list_options
+	AutoFlow -w $template -V $variables $aux_opt -o exec_DEG_wf -v -e $list_options -n "cpu"
 	echo Launching pending and failed jobs
 	flow_logger -w -e exec_DEG_wf -l -p
 fi
