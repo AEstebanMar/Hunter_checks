@@ -256,5 +256,26 @@ add_ref_features_[degenes;functional]){
 		diff -y ./hunter_results_table_annotated.txt $data_dir"/hunter_results_table_annotated_features.txt" > features_check
 	fi
 	diff_lines=`grep -e "|\|>" -c features_check`
-	task_check: -c "[ -f features_check ] && [[ $diff_lines -eq 0 ]]" 
+	task_check: -c "[ -f features_check ] && [[ $diff_lines -eq 0 ]]"
 }
+
+get_counts_[genome;transcriptome]){
+	select_counts_[1;2]){
+		source ~/software/inits/init_Hunter_dev
+		?
+		select_counts.R -i $data_dir/select_and_merge_counts/sample_(*)/ReadsPerGene.out.tab -s no > selected_counts
+		diff $data_dir/select_and_merge_counts/sample_(*)/get_counts_(+)_counts selected_counts > selected_diff
+		task_check: -c "[ -e selected_counts ] && [ $(wc -l < selected_counts) -ne 0 ] && [ -e selected_diff ] && [ $(wc -l < selected_diff) -eq 0 ]"
+	}
+
+	merge_count_tables){
+		source ~/software/inits/init_Hunter_dev
+		counts="!select_counts_!/selected_counts " # Trailing whitespace is a MUST! Otherwise AutoFlow gets confused and sticks an extra quote
+		counts=`echo $counts | tr " " ","`
+		?
+		merge_count_tables.R -i ${counts%,} -t sample_1,sample_2 > merged_counts
+		diff $data_dir/select_and_merge_counts/get_counts_(+)_merge merged_counts > merged_diff
+		task_check: -c "[ -e merged_counts ] && [ $(wc -l < merged_counts) -ne 0 ] && [ -e merged_diff ] && [ $(wc -l < merged_diff) -eq 0 ]"
+	}
+}
+
