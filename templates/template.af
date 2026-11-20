@@ -262,7 +262,7 @@ get_counts_[genome;transcriptome]){
 		?
 		select_counts.R -i $data_dir/select_and_merge_counts/sample_(*)/ReadsPerGene.out.tab -s no > selected_counts
 		elif [ "get_counts_(+)" == "transcriptome" ]; then
-		map2counts.R -i $data_dir/select_and_merge_counts/sample_(*)/sorted_mappings.bam -o selected_counts
+		map2counts.R -i $data_dir/select_and_merge_counts/sample_(*)/reduced_mappings.bam -o selected_counts
 		fi
 		diff $data_dir/select_and_merge_counts/sample_(*)/get_counts_(+)_counts selected_counts > selected_diff
 		task_check: -c "[ -e selected_counts ] && [ $(wc -l < selected_counts) -ne 0 ] && [ -e selected_diff ] && [ $(wc -l < selected_diff) -eq 0 ]"
