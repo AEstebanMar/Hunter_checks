@@ -5,7 +5,7 @@ Hunter_[D;DW;E;L;N;DELNW;NONE]){
 	source ~/software/inits/init_Hunter_dev
 	rm hunter_check
 	if [[ "Hunter_(+)" == *"W"* ]]; then
-		WGCNA_flags="--WGCNA_norm_method DESeq2 --WGCNA_all TRUE"
+		WGCNA_flags="--WGCNA_norm_method DESeq2 --WGCNA_all"
 	fi
 	if [[ "Hunter_(+)" == "NONE" ]]; then
 		modules_flag=\"\"
@@ -96,8 +96,8 @@ coRmiT){
 	coRmiT.R --strategies "$strats" -r $rnaseq_input_path \
 			 -m $mirnaseq_input_path --organism $organism \
 			 -R miRNA_target.html -M $Multimir_path \
-			 -c "'"$CORR_THRS"'" -u 2 -T TRUE -o results $ADD_OPT_CORR
-	add_annotation.R -i $mirnaseq_input_path/Common_results/hunter_results_table.txt -o results_annotation.txt -m TRUE --column "rownames" -I "MIMAT"
+			 -c "'"$CORR_THRS"'" -u 2 -T -o results $ADD_OPT_CORR
+	add_annotation.R -i $mirnaseq_input_path/Common_results/hunter_results_table.txt -o results_annotation.txt -m --column "rownames" -I "MIMAT"
 	task_check: -c "[[ $(wc -l < results/target_results_table.txt) -gt 20 ]]"
 }
 
@@ -108,7 +108,7 @@ add_annotation_[miRNA;RNA]){
 	if [[ (*) == "miRNA" ]]; then
 		?
 		add_annotation.R -i $data_dir"/hunter_results_table_mirna.txt" \
-							-m TRUE $common_flags -I "MIMAT" -o ./hunter_results_table_mirna_name_annotation.txt
+							-m $common_flags -I "MIMAT" -o ./hunter_results_table_mirna_name_annotation.txt
 		diff -y ./hunter_results_table_mirna_name_annotation.txt $data_dir"/hunter_results_table_mirna_name_annotation.txt" > annotation_check
 	else
 		add_annotation.R -i $data_dir"/hunter_results_table.txt"  \
@@ -128,9 +128,9 @@ clust2enrich){
 multivar_mine_[integration;no_integration]){
    source ~/software/inits/init_Hunter_dev
    rm multivar_check
-   flags="-i "$multivar_data/metabolomics.txt,$multivar_data/phenotypes.txt,$multivar_data/severity_scales.txt" -A "metabolomics.txt:s,phenotypes.txt:n" -S "severity_scales.txt:c" -c FALSE -n 2"
+   flags="-i "$multivar_data/metabolomics.txt,$multivar_data/phenotypes.txt,$multivar_data/severity_scales.txt" -A "metabolomics.txt:s,phenotypes.txt:n" -S "severity_scales.txt:c" -c -n 2"
    if [[ (*) == "no_integration" ]]; then
-   	flags=`echo $flags --do_not_integrate TRUE`
+   	flags=`echo $flags --do_not_integrate`
    fi
    ?
    multivar_mine.R $flags
@@ -149,7 +149,7 @@ degsynth_[vanilla;norm;exp;det]){
 	source ~/software/inits/init_Hunter_dev
 	rm degsynth_check
 	if [[ (*) == "vanilla" ]]; then
-		flags="-m compcodeR --samples.per.cond 6 -n 14760 -d 0 --fraction.upregulated 0.5 -o synth --dataset "dataset" --output_dir ./ --seed 69 --between.group.diffdisp FALSE"
+		flags="-m compcodeR --samples.per.cond 6 -n 14760 -d 0 --fraction.upregulated 0.5 -o synth --dataset "dataset" --output_dir ./ --seed 69"
 	else
 		flags="--inputfile $synth_data_dir"/input_counts" -m compcodeR --samples.per.cond 6 --effect_sizes 1,2 -n 14760 --fraction.upregulated 0.5 -o synth --dataset "dataset" --output_dir ./ --ndegs "338,338" --seed 69 --overlap_size 0.6 --condition_columns "2,3" --exp_design $synth_data_dir"/exp_design" --fixed_DEG_lists $synth_data_dir"/degs1,"$synth_data_dir"/degs2" --fixed_upregulated_DEGs $synth_data_dir"/up_degs_condition,"$synth_data_dir"/up_degs_condition2" --method (*)"
 	fi
